@@ -2,28 +2,30 @@
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>步步花园 MVP 线框原型</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>步步花园 MVP 原型</title>
   <style>
     :root {
       color-scheme: light;
-      --ink: #282522;
-      --muted: #7a756c;
-      --line: #d9d2c2;
+      --ink: #25211d;
+      --muted: #756f64;
+      --soft: #a49a8c;
+      --line: #e0d8c9;
       --paper: #fffdf8;
-      --wash: #f4efe5;
-      --leaf: #3f9d74;
-      --leaf-soft: #dff3e9;
-      --sun: #f4bf45;
-      --sun-soft: #fff0c5;
-      --sky: #78a6c8;
-      --sky-soft: #e4f1f7;
-      --coral: #e87458;
-      --coral-soft: #ffe1d8;
-      --violet: #8172b3;
-      --shadow: 0 22px 60px rgba(49, 42, 31, 0.14);
-      --radius: 8px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --cream: #fbf5ea;
+      --leaf: #5f9137;
+      --leaf-dark: #3f7027;
+      --leaf-soft: #e9f4df;
+      --gold: #d99520;
+      --gold-soft: #ffe2a2;
+      --water: #2f86df;
+      --water-soft: #e3f2ff;
+      --coral: #ef866f;
+      --pink: #ffe0d9;
+      --shadow: 0 18px 46px rgba(63, 50, 30, 0.14);
+      --card-shadow: 0 8px 26px rgba(70, 58, 37, 0.12);
+      --radius: 24px;
+      font-family: ui-rounded, "SF Pro Rounded", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     * {
@@ -35,9 +37,9 @@
       min-height: 100vh;
       color: var(--ink);
       background:
-        linear-gradient(90deg, rgba(255,255,255,0.48) 1px, transparent 1px),
-        linear-gradient(0deg, rgba(255,255,255,0.52) 1px, transparent 1px),
-        #eee7d8;
+        linear-gradient(90deg, rgba(255,255,255,0.54) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255,255,255,0.48) 1px, transparent 1px),
+        #eee7da;
       background-size: 28px 28px;
     }
 
@@ -49,6 +51,7 @@
     button {
       border: 0;
       cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
     }
 
     button:disabled {
@@ -57,70 +60,151 @@
 
     .prototype-shell {
       display: grid;
-      grid-template-columns: minmax(360px, 430px) minmax(320px, 460px);
-      gap: 28px;
-      align-items: start;
+      grid-template-columns: 430px minmax(320px, 460px);
+      gap: 34px;
       justify-content: center;
-      width: min(100%, 1120px);
+      align-items: start;
+      width: min(100%, 1180px);
       margin: 0 auto;
-      padding: 30px 18px 42px;
+      padding: 24px 18px 40px;
     }
 
     .stage-label {
       grid-column: 1 / -1;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      color: var(--muted);
+      gap: 18px;
+      color: #7c7467;
       font-size: 13px;
-      letter-spacing: 0;
     }
 
     .stage-label strong {
       display: block;
       color: var(--ink);
       font-size: 20px;
-      font-weight: 750;
+      line-height: 1.3;
     }
 
-    .phone {
+    .phone-frame {
       position: sticky;
-      top: 22px;
-      width: min(100%, 410px);
-      margin: 0 auto;
-      border: 12px solid #24201d;
-      border-radius: 38px;
-      background: #24201d;
+      top: 18px;
+      width: 430px;
+      height: 932px;
+      overflow: hidden;
+      border: 0;
+      border-radius: 0;
+      background: var(--paper);
       box-shadow: var(--shadow);
-    }
-
-    .phone::before {
-      content: "";
-      position: absolute;
-      z-index: 2;
-      top: 7px;
-      left: 50%;
-      width: 112px;
-      height: 27px;
-      border-radius: 0 0 18px 18px;
-      background: #24201d;
-      transform: translateX(-50%);
     }
 
     .screen {
       position: relative;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
-      min-height: 760px;
-      border-radius: 27px;
-      background: var(--paper);
+      background:
+        radial-gradient(circle at 18% 4%, rgba(255,255,255,0.86), transparent 30%),
+        linear-gradient(180deg, #fffaf0 0%, #fffdf8 42%, #fbf4e8 100%);
+    }
+
+    .screen::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.26;
+      background:
+        linear-gradient(90deg, rgba(223,212,190,0.5) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(223,212,190,0.44) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+
+    .status-bar {
+      position: absolute;
+      z-index: 30;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 54px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 34px 0;
+      color: #0c0c0b;
+      font-size: 16px;
+      font-weight: 800;
+      pointer-events: none;
+    }
+
+    .signal {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bars {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2px;
+      height: 14px;
+    }
+
+    .bars span {
+      width: 3px;
+      border-radius: 2px;
+      background: #0c0c0b;
+    }
+
+    .bars span:nth-child(1) { height: 6px; }
+    .bars span:nth-child(2) { height: 9px; }
+    .bars span:nth-child(3) { height: 12px; }
+    .bars span:nth-child(4) { height: 14px; }
+
+    .wifi {
+      width: 16px;
+      height: 11px;
+      border: 3px solid #0c0c0b;
+      border-bottom: 0;
+      border-radius: 16px 16px 0 0;
+      transform: scaleX(0.92);
+    }
+
+    .battery {
+      position: relative;
+      width: 25px;
+      height: 13px;
+      border: 2px solid #0c0c0b;
+      border-radius: 4px;
+    }
+
+    .battery::before {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 16px;
+      height: 5px;
+      border-radius: 2px;
+      background: #0c0c0b;
+    }
+
+    .battery::after {
+      content: "";
+      position: absolute;
+      top: 3px;
+      right: -5px;
+      width: 3px;
+      height: 5px;
+      border-radius: 0 2px 2px 0;
+      background: #0c0c0b;
     }
 
     .screen-inner {
-      height: 760px;
-      min-height: 760px;
-      padding: 24px 18px 82px;
+      position: absolute;
+      z-index: 2;
+      inset: 0;
       overflow-y: auto;
+      padding: 72px 20px 116px;
       scrollbar-width: none;
     }
 
@@ -128,528 +212,507 @@
       display: none;
     }
 
-    .top-bar {
+    .screen-inner.no-nav {
+      padding-bottom: 34px;
+    }
+
+    .app-header {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 42px;
-      margin-top: 2px;
+      min-height: 48px;
+      margin-bottom: 18px;
     }
 
     .brand-mark {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      font-weight: 760;
-    }
-
-    .mark-box {
-      display: grid;
-      place-items: center;
-      width: 34px;
-      height: 34px;
-      border: 2px solid var(--ink);
-      border-radius: 9px;
-      background: var(--sun-soft);
-      box-shadow: 3px 3px 0 var(--ink);
-      font-size: 12px;
-      font-weight: 800;
-    }
-
-    .plan-pill,
-    .outline-pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 32px;
-      padding: 6px 10px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #fff;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-      white-space: nowrap;
-    }
-
-    .plan-pill.is-premium {
-      border-color: #e0b837;
-      background: var(--sun-soft);
-      color: #7d5d0d;
-    }
-
-    .hero-copy {
-      margin: 36px 2px 26px;
-    }
-
-    .hero-copy h1,
-    .screen-title {
-      margin: 0;
+      gap: 10px;
       color: var(--ink);
-      font-size: 28px;
-      line-height: 1.12;
-      font-weight: 820;
+      font-size: 23px;
+      font-weight: 900;
       letter-spacing: 0;
     }
 
-    .hero-copy p,
-    .soft-copy {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.6;
+    .daisy-logo {
+      position: relative;
+      display: inline-grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 42px;
+      height: 42px;
+    }
+
+    .daisy-logo::before {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, #f3bd37 0 15%, transparent 16%),
+        conic-gradient(from 0deg, #fff 0 10%, transparent 10% 16%, #fff 16% 26%, transparent 26% 33%, #fff 33% 43%, transparent 43% 50%, #fff 50% 60%, transparent 60% 67%, #fff 67% 77%, transparent 77% 83%, #fff 83% 94%, transparent 94%);
+      filter: drop-shadow(0 2px 2px rgba(62, 51, 31, 0.18));
+    }
+
+    .daisy-logo::after {
+      content: "";
+      position: absolute;
+      left: 9px;
+      bottom: 1px;
+      width: 25px;
+      height: 18px;
+      border-radius: 90% 0 90% 0;
+      background: #79a94c;
+      transform: rotate(-18deg);
+      opacity: 0.92;
+    }
+
+    .leaf-dot {
+      color: var(--leaf);
+      font-size: 18px;
+      font-weight: 800;
+    }
+
+    .vip-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 36px;
+      padding: 6px 14px;
+      border: 1px solid #ebb84f;
+      border-radius: 999px;
+      background: linear-gradient(180deg, #ffe6a9 0%, #ffd47a 100%);
+      color: #9b6412;
+      font-size: 15px;
+      font-weight: 900;
+      box-shadow: 0 5px 14px rgba(176, 119, 28, 0.18), inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+
+    .vip-crown {
+      position: relative;
+      width: 18px;
+      height: 15px;
+    }
+
+    .vip-crown::before {
+      content: "";
+      position: absolute;
+      left: 2px;
+      right: 2px;
+      bottom: 1px;
+      height: 6px;
+      border-radius: 1px 1px 4px 4px;
+      background: #c88413;
+    }
+
+    .vip-crown::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 2px 3px, #c88413 0 2px, transparent 2px),
+        radial-gradient(circle at 9px 1px, #c88413 0 2px, transparent 2px),
+        radial-gradient(circle at 16px 3px, #c88413 0 2px, transparent 2px),
+        linear-gradient(135deg, transparent 0 30%, #c88413 31% 50%, transparent 51%),
+        linear-gradient(225deg, transparent 0 30%, #c88413 31% 50%, transparent 51%);
+    }
+
+    .page-title {
+      margin: 20px 0 8px;
+      color: var(--ink);
+      font-size: 35px;
+      line-height: 1.08;
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .page-subtitle {
+      margin: 0;
+      color: #6f665a;
+      font-size: 16px;
+      line-height: 1.55;
+      font-weight: 560;
+    }
+
+    .soft-card,
+    .white-card {
+      border: 1px solid rgba(214, 205, 187, 0.84);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(14px);
+    }
+
+    .soft-card {
+      padding: 18px;
     }
 
     .primary-button,
     .secondary-button,
     .ghost-button,
-    .tab-button,
-    .square-button {
-      min-height: 44px;
-      border-radius: var(--radius);
-      font-weight: 760;
-      transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s ease;
+    .green-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 50px;
+      border-radius: 999px;
+      font-weight: 900;
+      transition: transform 0.16s ease, opacity 0.16s ease, box-shadow 0.16s ease;
     }
 
     .primary-button {
-      width: 100%;
       background: var(--ink);
       color: #fff;
-      box-shadow: 4px 4px 0 rgba(40, 37, 34, 0.18);
+      box-shadow: 0 9px 18px rgba(37, 33, 29, 0.18);
     }
 
-    .primary-button:hover:not(:disabled),
-    .secondary-button:hover:not(:disabled),
-    .ghost-button:hover:not(:disabled),
-    .square-button:hover:not(:disabled) {
-      transform: translateY(-1px);
+    .green-button {
+      border: 1px solid #70a43d;
+      background: linear-gradient(180deg, #8abc42 0%, #5f982b 100%);
+      color: #fff;
+      box-shadow: 0 9px 18px rgba(77, 124, 35, 0.24), inset 0 2px 0 rgba(255,255,255,0.38);
+      text-shadow: 0 2px 3px rgba(54, 79, 21, 0.25);
     }
 
+    .green-button:disabled,
     .primary-button:disabled {
-      background: #bdb7ad;
-      box-shadow: none;
+      border-color: #d5cec2;
+      background: #eee9df;
+      color: #aaa195;
+      box-shadow: inset 0 1px 0 #fff, 0 4px 10px rgba(70,58,37,0.08);
+      text-shadow: none;
     }
 
     .secondary-button {
-      border: 1px solid var(--ink);
-      background: #fff;
+      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.86);
       color: var(--ink);
-      box-shadow: 3px 3px 0 rgba(40, 37, 34, 0.16);
     }
 
     .ghost-button {
       border: 1px solid var(--line);
-      background: #fff;
-      color: var(--ink);
+      background: transparent;
+      color: var(--muted);
     }
 
     .button-row {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: 12px;
-    }
-
-    .auth-visual {
-      position: relative;
-      height: 280px;
-      margin: 18px 0 28px;
-      border: 2px dashed var(--line);
-      border-radius: 22px;
-      background: linear-gradient(180deg, #fffdf8 0%, #f8f1e4 100%);
-    }
-
-    .auth-visual .ground {
-      position: absolute;
-      right: 34px;
-      bottom: 58px;
-      left: 34px;
-      height: 14px;
-      border: 2px solid var(--line);
-      border-radius: 999px;
-      background: #fff;
-    }
-
-    .auth-visual .large-flower {
-      position: absolute;
-      right: 76px;
-      bottom: 61px;
-      transform: scale(1.35);
-    }
-
-    .status-card {
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      background: #fff;
-      padding: 14px;
-    }
-
-    .status-card.is-highlight {
-      border-color: #dfbd5f;
-      background: #fff9e8;
-    }
-
-    .status-card h2,
-    .panel-card h2,
-    .control-card h2 {
-      margin: 0 0 10px;
-      font-size: 15px;
-      line-height: 1.25;
-      font-weight: 790;
-      letter-spacing: 0;
-    }
-
-    .status-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
       margin-top: 14px;
     }
 
-    .metric {
+    .bottom-nav {
+      position: absolute;
+      z-index: 25;
+      left: 16px;
+      right: 16px;
+      bottom: 8px;
       display: grid;
-      gap: 4px;
-      padding: 12px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: #fff;
-    }
-
-    .metric span {
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 680;
-    }
-
-    .metric strong {
-      font-size: 24px;
-      line-height: 1;
-      font-weight: 820;
-      letter-spacing: 0;
-    }
-
-    .progress-track {
-      overflow: hidden;
-      height: 10px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #fff;
-    }
-
-    .progress-fill {
-      width: 0;
-      height: 100%;
-      border-radius: inherit;
-      background: var(--leaf);
-      transition: width 0.24s ease;
-    }
-
-    .progress-fill.is-water {
-      background: var(--sky);
-    }
-
-    .progress-fill.is-sun {
-      background: var(--sun);
-    }
-
-    .progress-caption {
-      display: flex;
-      justify-content: space-between;
+      grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      margin-top: 7px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 650;
+      min-height: 64px;
+      padding: 7px 10px;
+      border: 1px solid rgba(220, 211, 195, 0.82);
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 12px 32px rgba(82, 66, 38, 0.12);
+      backdrop-filter: blur(18px);
     }
 
-    .garden-scene {
-      position: relative;
-      min-height: 292px;
-      margin: 16px 0;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background:
-        linear-gradient(0deg, rgba(223, 243, 233, 0.8) 0%, rgba(223, 243, 233, 0.8) 31%, transparent 31%),
-        #fffdf8;
-    }
-
-    .home-scene {
-      min-height: 576px;
-      margin: 6px 0 0;
-      border: 0;
-      border-radius: 0;
-      background: #fffdf8;
-    }
-
-    .home-panel {
-      position: absolute;
-      left: 18px;
-      right: 18px;
-      bottom: 18px;
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.92);
-      backdrop-filter: blur(8px);
-    }
-
-    .home-panel-main {
-      display: grid;
-      grid-template-columns: 1fr 106px;
-      gap: 14px;
-      align-items: center;
-      margin-top: 16px;
-    }
-
-    .home-flower-line {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 12px;
-      margin-bottom: 8px;
-    }
-
-    .home-flower-line strong {
-      font-size: 20px;
-      line-height: 1.15;
-      font-weight: 820;
-    }
-
-    .home-flower-line span,
-    .home-step span,
-    .can-caption span {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 720;
-      line-height: 1.35;
-    }
-
-    .home-step {
-      margin-top: 12px;
-      min-height: 86px;
-    }
-
-    .home-step strong {
-      display: block;
-      margin: 2px 0 8px;
-      font-size: 32px;
-      line-height: 1;
-      font-weight: 830;
-      letter-spacing: 0;
-    }
-
-    .home-step em {
-      display: block;
-      margin-top: 7px;
-      color: var(--muted);
-      font-size: 12px;
-      font-style: normal;
-      font-weight: 700;
-    }
-
-    .scene-sun {
-      position: absolute;
-      top: 22px;
-      right: 24px;
-      width: 44px;
-      height: 44px;
-      border: 2px solid var(--ink);
-      border-radius: 50%;
-      background: var(--sun);
-      box-shadow: 3px 3px 0 rgba(40, 37, 34, 0.16);
-    }
-
-    .stage-chip-row {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      margin-top: 12px;
-    }
-
-    .stage-chip {
-      min-height: 34px;
+    .tab-button {
       display: grid;
       place-items: center;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: #fff;
-      color: var(--muted);
-      font-size: 11px;
-      font-weight: 760;
+      gap: 3px;
+      border-radius: 19px;
+      background: transparent;
+      color: #766f64;
+      font-size: 13px;
+      font-weight: 820;
     }
 
-    .stage-chip.is-active {
-      border-color: var(--ink);
-      background: var(--sun-soft);
-      color: var(--ink);
-      box-shadow: 2px 2px 0 rgba(40, 37, 34, 0.13);
+    .tab-button.is-active {
+      color: var(--leaf);
+    }
+
+    .tab-icon {
+      position: relative;
+      display: block;
+      width: 30px;
+      height: 30px;
+    }
+
+    .icon-today::before {
+      content: "";
+      position: absolute;
+      left: 13px;
+      bottom: 4px;
+      width: 4px;
+      height: 18px;
+      border-radius: 9px;
+      background: currentColor;
+    }
+
+    .icon-today::after {
+      content: "";
+      position: absolute;
+      left: 6px;
+      bottom: 15px;
+      width: 18px;
+      height: 12px;
+      border: 2px solid currentColor;
+      border-bottom: 0;
+      border-radius: 50% 50% 0 0;
+    }
+
+    .icon-atlas::before {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      border: 2px solid currentColor;
+      border-radius: 7px;
+    }
+
+    .icon-atlas::after {
+      content: "";
+      position: absolute;
+      left: 12px;
+      top: 8px;
+      width: 7px;
+      height: 12px;
+      border-radius: 8px;
+      border: 2px solid currentColor;
+      background: transparent;
+    }
+
+    .icon-us::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 4px;
+      width: 10px;
+      height: 10px;
+      border: 2px solid currentColor;
+      border-radius: 50%;
+    }
+
+    .icon-us::after {
+      content: "";
+      position: absolute;
+      left: 6px;
+      bottom: 4px;
+      width: 18px;
+      height: 12px;
+      border: 2px solid currentColor;
+      border-radius: 16px 16px 4px 4px;
+    }
+
+    .onboarding-hero {
+      min-height: 478px;
+      display: grid;
+      align-content: end;
+      gap: 22px;
+      padding-top: 24px;
+    }
+
+    .onboarding-art,
+    .home-art,
+    .garden-island {
+      position: relative;
+      overflow: hidden;
+      border-radius: 34px;
+    }
+
+    .onboarding-art {
+      min-height: 318px;
+      background:
+        radial-gradient(circle at 18% 72%, rgba(143, 181, 76, 0.28) 0 18%, transparent 19%),
+        radial-gradient(circle at 88% 20%, rgba(255, 215, 126, 0.44) 0 12%, transparent 13%),
+        linear-gradient(180deg, #fff9ec 0%, #f6ead8 100%);
+      border: 1px solid #ead8ba;
+      box-shadow: var(--card-shadow);
+    }
+
+    .window-frame {
+      position: absolute;
+      left: 26px;
+      top: 28px;
+      width: 116px;
+      height: 152px;
+      border: 8px solid rgba(170, 118, 48, 0.42);
+      border-radius: 6px;
+      box-shadow: inset 0 0 0 2px rgba(255,255,255,0.66);
+    }
+
+    .window-frame::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: -8px;
+      right: -8px;
+      height: 8px;
+      background: rgba(170, 118, 48, 0.42);
+      transform: translateY(-50%);
+    }
+
+    .window-frame::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -8px;
+      bottom: -8px;
+      width: 8px;
+      background: rgba(170, 118, 48, 0.42);
+      transform: translateX(-50%);
+    }
+
+    .plant-scene {
+      position: absolute;
+      left: 50%;
+      bottom: 12px;
+      width: 186px;
+      height: 246px;
+      transform: translateX(-50%);
+    }
+
+    .plant-scene.is-small {
+      width: 108px;
+      height: 132px;
+      transform: none;
     }
 
     .plant {
       position: absolute;
-      left: 50%;
-      bottom: 72px;
-      width: 142px;
-      height: 174px;
-      transform: translateX(-50%);
+      inset: 0;
     }
 
-    .home-scene .plant {
-      bottom: 288px;
-      transform: translateX(-50%) scale(1.24);
-    }
-
-    .current-stage-button {
+    .pot {
       position: absolute;
-      z-index: 1;
-      top: 78px;
-      left: 50%;
-      transform: translateX(-50%);
-      min-height: 34px;
-      padding: 6px 12px;
-      border: 1px solid var(--ink);
-      border-radius: 999px;
-      background: var(--sun-soft);
-      color: var(--ink);
-      font-size: 12px;
-      font-weight: 780;
-      box-shadow: 2px 2px 0 rgba(40, 37, 34, 0.12);
-      backdrop-filter: blur(6px);
-    }
-
-    .plant .pot {
-      position: absolute;
-      right: 30px;
+      left: 34px;
+      right: 34px;
       bottom: 0;
-      left: 30px;
-      height: 38px;
-      border: 2px solid var(--ink);
-      border-radius: 8px 8px 18px 18px;
-      background: var(--coral-soft);
-      box-shadow: 3px 3px 0 rgba(40, 37, 34, 0.15);
-    }
-
-    .plant .soil {
-      position: absolute;
-      right: 24px;
-      bottom: 33px;
-      left: 24px;
-      height: 14px;
-      border: 2px solid var(--ink);
-      border-radius: 999px;
-      background: #9c7558;
-    }
-
-    .plant .stem {
-      position: absolute;
-      left: 69px;
-      bottom: 43px;
-      width: 5px;
-      height: 78px;
-      border-radius: 999px;
-      background: var(--leaf);
-      transform-origin: bottom;
-    }
-
-    .plant .leaf {
-      position: absolute;
-      width: 34px;
-      height: 20px;
-      border: 2px solid var(--ink);
-      border-radius: 100% 0 100% 0;
-      background: var(--leaf-soft);
-    }
-
-    .plant .leaf.left {
-      left: 38px;
-      bottom: 78px;
-      transform: rotate(18deg);
-    }
-
-    .plant .leaf.right {
-      right: 35px;
-      bottom: 95px;
-      transform: rotate(68deg);
-    }
-
-    .plant .seed {
-      position: absolute;
-      left: 60px;
-      bottom: 43px;
-      width: 26px;
-      height: 16px;
-      border: 2px solid var(--ink);
-      border-radius: 50%;
-      background: var(--sun);
-      transform: rotate(-22deg);
-    }
-
-    .plant .bud {
-      position: absolute;
-      left: 55px;
-      bottom: 112px;
-      width: 34px;
-      height: 40px;
-      border: 2px solid var(--ink);
-      border-radius: 50% 50% 44% 44%;
-      background: var(--sun-soft);
-    }
-
-    .plant .flower-head {
-      position: absolute;
-      left: 40px;
-      bottom: 105px;
-      width: 62px;
       height: 62px;
+      border-radius: 0 0 28px 28px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,0.28), transparent 38%),
+        #b8753b;
+      border: 2px solid rgba(94, 58, 31, 0.5);
+      box-shadow: inset 0 -8px 0 rgba(104, 63, 31, 0.16), 0 12px 18px rgba(66, 45, 25, 0.14);
     }
 
-    .plant .petal {
+    .pot::before {
+      content: "";
       position: absolute;
-      left: 19px;
-      top: 2px;
-      width: 25px;
-      height: 32px;
-      border: 2px solid var(--ink);
-      border-radius: 50% 50% 45% 45%;
-      background: var(--coral-soft);
-      transform-origin: 50% 29px;
+      left: -10px;
+      right: -10px;
+      top: -16px;
+      height: 28px;
+      border-radius: 999px;
+      background: #c4864c;
+      border: 2px solid rgba(94, 58, 31, 0.42);
     }
 
-    .plant .petal:nth-child(1) { transform: rotate(0deg); }
-    .plant .petal:nth-child(2) { transform: rotate(60deg); }
-    .plant .petal:nth-child(3) { transform: rotate(120deg); }
-    .plant .petal:nth-child(4) { transform: rotate(180deg); }
-    .plant .petal:nth-child(5) { transform: rotate(240deg); }
-    .plant .petal:nth-child(6) { transform: rotate(300deg); }
-
-    .plant .center {
+    .soil {
       position: absolute;
-      left: 20px;
-      top: 20px;
-      width: 25px;
-      height: 25px;
-      border: 2px solid var(--ink);
+      left: 35px;
+      right: 35px;
+      bottom: 51px;
+      height: 18px;
       border-radius: 50%;
-      background: var(--sun);
+      background: #4d2f18;
+    }
+
+    .stem {
+      position: absolute;
+      left: 91px;
+      bottom: 66px;
+      width: 8px;
+      height: 116px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #4f8d32, #6faa44);
+      transform-origin: bottom center;
+    }
+
+    .leaf {
+      position: absolute;
+      width: 56px;
+      height: 30px;
+      border-radius: 100% 0 100% 0;
+      background: linear-gradient(135deg, #7cac53, #d3e9ba);
+      border: 1px solid rgba(50, 89, 31, 0.28);
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.35);
+    }
+
+    .leaf.left {
+      left: 43px;
+      bottom: 102px;
+      transform: rotate(-16deg);
+    }
+
+    .leaf.right {
+      right: 38px;
+      bottom: 126px;
+      transform: rotate(48deg);
+    }
+
+    .seed-shape {
+      position: absolute;
+      left: 79px;
+      bottom: 65px;
+      width: 32px;
+      height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, #f7ca55, #cd8b29);
+      transform: rotate(-23deg);
+    }
+
+    .bud-shape {
+      position: absolute;
+      left: 72px;
+      bottom: 172px;
+      width: 46px;
+      height: 56px;
+      border-radius: 50% 50% 45% 45%;
+      background: linear-gradient(180deg, #fff7c8, #efd477);
+      border: 1px solid rgba(96, 71, 28, 0.25);
+    }
+
+    .flower-head {
+      position: absolute;
+      left: 54px;
+      bottom: 166px;
+      width: 82px;
+      height: 82px;
+    }
+
+    .flower-head::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, #e0a51e 0 16%, transparent 17%),
+        conic-gradient(from 0deg, #fff 0 9%, transparent 9% 14%, #fff 14% 23%, transparent 23% 29%, #fff 29% 38%, transparent 38% 44%, #fff 44% 53%, transparent 53% 59%, #fff 59% 68%, transparent 68% 74%, #fff 74% 83%, transparent 83% 89%, #fff 89% 98%, transparent 98%);
+      filter: drop-shadow(0 3px 5px rgba(55, 39, 18, 0.15));
     }
 
     .plant[data-stage="seed"] .stem,
     .plant[data-stage="seed"] .leaf,
-    .plant[data-stage="seed"] .bud,
+    .plant[data-stage="seed"] .bud-shape,
     .plant[data-stage="seed"] .flower-head,
-    .plant[data-stage="sprout"] .seed,
-    .plant[data-stage="sprout"] .bud,
+    .plant[data-stage="sprout"] .seed-shape,
+    .plant[data-stage="sprout"] .bud-shape,
     .plant[data-stage="sprout"] .flower-head,
-    .plant[data-stage="bud"] .seed,
+    .plant[data-stage="bud"] .seed-shape,
     .plant[data-stage="bud"] .flower-head,
-    .plant[data-stage="bloom"] .seed,
-    .plant[data-stage="bloom"] .bud {
+    .plant[data-stage="bloom"] .seed-shape,
+    .plant[data-stage="bloom"] .bud-shape {
       display: none;
     }
 
     .plant[data-stage="sprout"] .stem {
-      height: 58px;
+      height: 78px;
     }
 
     .plant[data-stage="sprout"] .leaf.right {
@@ -657,824 +720,907 @@
     }
 
     .plant[data-stage="bud"] .stem {
-      height: 84px;
+      height: 118px;
     }
 
-    .plant-name-card {
-      position: absolute;
-      right: 16px;
-      bottom: 18px;
-      left: 16px;
-      padding: 12px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: rgba(255, 255, 255, 0.9);
-      backdrop-filter: blur(6px);
+    .plant-scene.is-small .plant {
+      transform: scale(0.56);
+      transform-origin: left bottom;
     }
 
-    .plant-name-card strong {
-      display: block;
-      font-size: 15px;
+    .home-art {
+      height: 405px;
+      margin: -4px -20px 0;
+      border-radius: 0;
+      background:
+        radial-gradient(circle at 17% 50%, rgba(118, 164, 68, 0.32) 0 19%, transparent 20%),
+        radial-gradient(circle at 78% 38%, rgba(129, 175, 83, 0.18) 0 18%, transparent 19%),
+        linear-gradient(112deg, rgba(255,255,255,0.38), transparent 28%),
+        linear-gradient(180deg, #fff7e8 0%, #f4e9d2 62%, #cbdcbd 100%);
     }
 
-    .plant-name-card span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.4;
-    }
-
-    .scene-plant-button {
-      grid-column: 1 / -1;
-      margin-top: 12px;
-      min-height: 38px;
-      border: 1px solid var(--ink);
-      border-radius: 8px;
-      background: var(--ink);
-      color: #fff;
-      font-size: 12px;
-      font-weight: 780;
-    }
-
-    .water-can-button {
-      display: grid;
-      justify-items: center;
-      gap: 5px;
-      min-height: 116px;
-      padding: 4px 4px 0;
-      border: 0;
-      border-radius: 12px;
-      background: transparent;
-      color: var(--ink);
-    }
-
-    .water-can-button:disabled {
-      opacity: 0.64;
-    }
-
-    .water-can-button.is-ready .can-visual {
-      animation: canWiggle 1.4s ease-in-out infinite;
-    }
-
-    .can-visual {
-      position: relative;
-      width: 78px;
-      height: 62px;
-      transform-origin: 54% 78%;
-    }
-
-    .can-body {
-      position: absolute;
-      right: 17px;
-      bottom: 6px;
-      overflow: hidden;
-      width: 45px;
-      height: 36px;
-      border: 2px solid var(--ink);
-      border-radius: 10px 10px 14px 14px;
-      background: #fff;
-      box-shadow: 3px 3px 0 rgba(40, 37, 34, 0.13);
-    }
-
-    .can-fill {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      height: 0;
-      background: var(--sky-soft);
-      transition: height 0.22s ease;
-    }
-
-    .can-spout {
+    .home-art::before {
+      content: "";
       position: absolute;
       left: 0;
-      bottom: 26px;
-      width: 31px;
-      height: 13px;
-      border: 2px solid var(--ink);
-      border-right: 0;
-      border-radius: 999px 0 0 999px;
-      background: #fff;
-      transform: rotate(-17deg);
-      transform-origin: right center;
-    }
-
-    .can-handle {
-      position: absolute;
-      right: 3px;
-      bottom: 15px;
-      width: 23px;
-      height: 31px;
-      border: 2px solid var(--ink);
+      top: 90px;
+      width: 120px;
+      height: 190px;
+      border: 8px solid rgba(160, 112, 48, 0.34);
       border-left: 0;
+      background: rgba(255,255,255,0.24);
+    }
+
+    .home-art::after {
+      content: "";
+      position: absolute;
+      right: -26px;
+      bottom: 82px;
+      width: 128px;
+      height: 98px;
+      border: 8px solid rgba(110, 125, 115, 0.44);
+      border-radius: 14px 14px 28px 28px;
+      transform: rotate(-15deg);
+      opacity: 0.7;
+    }
+
+    .home-art .plant-scene {
+      bottom: 32px;
+      transform: translateX(-50%) scale(0.82);
+    }
+
+    .stage-pill {
+      position: absolute;
+      left: 50%;
+      top: 82px;
+      z-index: 4;
+      transform: translateX(-50%);
+      min-height: 36px;
+      padding: 7px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(97, 146, 72, 0.32);
+      background: rgba(231, 245, 220, 0.86);
+      color: var(--leaf-dark);
+      font-size: 15px;
+      font-weight: 900;
+      box-shadow: 0 5px 13px rgba(66, 105, 40, 0.12);
+      backdrop-filter: blur(10px);
+    }
+
+    .today-card {
+      position: relative;
+      z-index: 5;
+      margin: -124px 0 0;
+      padding: 14px 22px 18px;
+      border-radius: 26px;
+    }
+
+    .flower-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(221, 213, 198, 0.8);
+    }
+
+    .flower-thumb {
+      position: relative;
+      flex: 0 0 auto;
+      width: 54px;
+      height: 54px;
+      border: 1px solid #eadfcf;
+      border-radius: 15px;
+      background: linear-gradient(180deg, #fff9ed, #f9efd9);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.9);
+    }
+
+    .flower-thumb::before {
+      content: "";
+      position: absolute;
+      left: 22px;
+      bottom: 9px;
+      width: 4px;
+      height: 25px;
+      border-radius: 9px;
+      background: var(--leaf);
+    }
+
+    .flower-thumb::after {
+      content: "";
+      position: absolute;
+      left: 13px;
+      top: 8px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, #dca31e 0 20%, transparent 21%),
+        conic-gradient(#fff 0 12%, transparent 12% 17%, #fff 17% 29%, transparent 29% 34%, #fff 34% 46%, transparent 46% 51%, #fff 51% 63%, transparent 63% 68%, #fff 68% 80%, transparent 80% 85%, #fff 85% 97%, transparent 97%);
+      filter: drop-shadow(0 2px 2px rgba(66,51,27,0.12));
+    }
+
+    .flower-title {
+      flex: 1;
+      display: grid;
+      gap: 3px;
+    }
+
+    .flower-title strong {
+      color: #10100f;
+      font-size: 26px;
+      line-height: 1;
+      font-weight: 950;
+    }
+
+    .flower-title span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .chevron {
+      color: #776d61;
+      font-size: 32px;
+      line-height: 1;
+    }
+
+    .steps-block {
+      margin-top: 14px;
+    }
+
+    .label {
+      display: block;
+      color: #776f64;
+      font-size: 16px;
+      font-weight: 760;
+    }
+
+    .steps-number {
+      display: flex;
+      align-items: baseline;
+      gap: 9px;
+      margin: 3px 0 14px;
+    }
+
+    .steps-number strong {
+      color: #080807;
+      font-size: 46px;
+      line-height: 0.92;
+      font-weight: 950;
+      letter-spacing: -1px;
+    }
+
+    .steps-number span {
+      color: #655d52;
+      font-size: 22px;
+      font-weight: 720;
+    }
+
+    .segmented-progress {
+      display: grid;
+      grid-template-columns: repeat(var(--segments), 1fr);
+      gap: 3px;
+      margin: 8px 0 8px;
+    }
+
+    .segment {
+      display: grid;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .drop-icon {
+      justify-self: center;
+      width: 20px;
+      height: 25px;
+      border: 2px solid #8f897f;
+      border-radius: 58% 58% 58% 8%;
+      transform: rotate(45deg);
+      opacity: 0.58;
+      background: rgba(255,255,255,0.5);
+    }
+
+    .drop-icon.is-earned {
+      border-color: #66a9f1;
+      background: radial-gradient(circle at 34% 28%, #fff 0 16%, transparent 18%), linear-gradient(180deg, #63b8ff, #176fd0);
+      box-shadow: 0 0 11px rgba(66, 150, 238, 0.55);
+      opacity: 1;
+    }
+
+    .track-shell {
+      overflow: hidden;
+      height: 22px;
+      border: 1px solid #b9b1a7;
+      background: rgba(255,255,255,0.62);
+      box-shadow: inset 0 2px 6px rgba(90, 75, 48, 0.1);
+    }
+
+    .segment:first-child .track-shell {
+      border-radius: 999px 0 0 999px;
+    }
+
+    .segment:last-child .track-shell {
       border-radius: 0 999px 999px 0;
     }
 
-    .can-caption {
-      text-align: center;
+    .segment:only-child .track-shell {
+      border-radius: 999px;
     }
 
-    .can-caption strong {
-      display: block;
-      font-size: 14px;
-      line-height: 1.2;
-      font-weight: 820;
+    .track-fill {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(180deg, #58a8ff, #1d77de);
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.54);
+      transition: width 0.22s ease;
     }
 
-    @keyframes canWiggle {
-      0%, 100% { transform: rotate(0deg); }
-      25% { transform: rotate(-4deg); }
-      55% { transform: rotate(5deg); }
-      78% { transform: rotate(-2deg); }
-    }
-
-    .water-strip {
-      display: grid;
-      grid-template-columns: repeat(10, 1fr);
-      gap: 5px;
-      margin-top: 12px;
-    }
-
-    .drop-cell {
-      height: 25px;
-      border: 1px solid var(--line);
-      border-radius: 999px 999px 999px 4px;
-      background: #fff;
-      transform: rotate(45deg);
-    }
-
-    .drop-cell.is-filled {
-      border-color: #5f93b7;
-      background: var(--sky-soft);
-    }
-
-    .bottom-nav {
-      position: absolute;
-      right: 14px;
-      bottom: 12px;
-      left: 14px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
-      padding: 8px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255, 253, 248, 0.92);
-      backdrop-filter: blur(8px);
-    }
-
-    .tab-button {
-      min-height: 48px;
-      background: transparent;
-      color: var(--muted);
+    .segment-label {
+      justify-self: center;
+      color: #2675d2;
       font-size: 12px;
+      font-weight: 760;
     }
 
-    .tab-button.is-active {
-      background: var(--ink);
-      color: #fff;
+    .segment-label.is-muted {
+      color: #8d867b;
     }
 
-    .section-stack {
+    .rule-copy {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin: 12px 0 14px;
+      color: #6d665b;
+      font-size: 15px;
+      font-weight: 650;
+    }
+
+    .rule-leaf {
+      width: 20px;
+      height: 14px;
+      border: 2px solid #8c867b;
+      border-radius: 100% 0 100% 0;
+      transform: rotate(-22deg);
+    }
+
+    .can-mini {
+      position: relative;
+      width: 38px;
+      height: 28px;
+      margin-right: 9px;
+    }
+
+    .can-mini::before {
+      content: "";
+      position: absolute;
+      left: 9px;
+      top: 7px;
+      width: 22px;
+      height: 16px;
+      border-radius: 5px 5px 8px 8px;
+      background: #f2c45e;
+      border: 1px solid rgba(112, 78, 22, 0.32);
+    }
+
+    .can-mini::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 17px;
+      height: 6px;
+      border-radius: 999px;
+      background: #f2c45e;
+      transform: rotate(-18deg);
+    }
+
+    .notice-card {
       display: grid;
+      gap: 7px;
+      margin: 10px 0;
+      padding: 11px 12px;
+      border: 1px solid #dfd3bd;
+      border-radius: 18px;
+      background: rgba(255, 249, 236, 0.84);
+      color: #675e53;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 650;
+    }
+
+    .auth-card {
+      display: grid;
+      gap: 16px;
+      margin-top: 20px;
+    }
+
+    .privacy-list {
+      display: grid;
+      gap: 10px;
+      margin: 18px 0;
+    }
+
+    .privacy-row {
+      display: flex;
+      align-items: center;
       gap: 12px;
+      padding: 13px;
+      border-radius: 17px;
+      background: rgba(255, 255, 255, 0.74);
+      border: 1px solid rgba(224, 216, 201, 0.8);
+      color: #60584e;
+      font-size: 14px;
+      font-weight: 690;
+    }
+
+    .privacy-icon {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--leaf-soft);
+      color: var(--leaf-dark);
+      font-weight: 900;
+    }
+
+    .garden-copy {
       margin-top: 16px;
     }
 
-    .garden-header {
-      display: flex;
-      align-items: start;
-      justify-content: space-between;
-      gap: 12px;
+    .atlas-carousel {
+      position: relative;
+      min-height: 650px;
       margin-top: 12px;
+    }
+
+    .garden-island {
+      height: 470px;
+      margin: 0 -10px;
+      overflow: visible;
+    }
+
+    .garden-island::before {
+      content: "";
+      position: absolute;
+      left: 30px;
+      right: 30px;
+      bottom: 22px;
+      height: 315px;
+      border-radius: 47% 48% 44% 46%;
+      background:
+        radial-gradient(circle at 32% 35%, #f2d657 0 4%, transparent 5%),
+        radial-gradient(circle at 47% 50%, #f39aa8 0 4%, transparent 5%),
+        radial-gradient(circle at 71% 48%, #f08947 0 4%, transparent 5%),
+        radial-gradient(circle at 68% 72%, #6a9fe2 0 4%, transparent 5%),
+        radial-gradient(circle at 25% 68%, #fff7c5 0 5%, transparent 6%),
+        linear-gradient(135deg, #7ca642, #d9e9ab 42%, #6e9d37 100%);
+      box-shadow: 0 20px 28px rgba(79, 63, 32, 0.16);
+    }
+
+    .garden-island::after {
+      content: "";
+      position: absolute;
+      left: 132px;
+      right: 80px;
+      bottom: 62px;
+      height: 92px;
+      border-radius: 49%;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.8), transparent 11%),
+        linear-gradient(135deg, #8ed8e9, #4ea5bb);
+      box-shadow: inset 0 5px 12px rgba(255,255,255,0.32);
+    }
+
+    .garden-gate {
+      position: absolute;
+      left: 161px;
+      top: 95px;
+      width: 76px;
+      height: 112px;
+      border: 7px solid #f4efe3;
+      border-radius: 40px 40px 7px 7px;
+      background: #83b69c;
+      box-shadow: 0 4px 9px rgba(70, 54, 30, 0.16);
+    }
+
+    .garden-sign {
+      position: absolute;
+      left: 122px;
+      bottom: 42px;
+      min-width: 160px;
+      padding: 8px 16px;
+      border-radius: 7px;
+      background: #bd8750;
+      color: #4b2a12;
+      font-size: 22px;
+      font-weight: 900;
+      text-align: center;
+      box-shadow: inset 0 2px 0 rgba(255,255,255,0.28), 0 5px 9px rgba(54, 35, 14, 0.16);
+    }
+
+    .atlas-arrow {
+      position: absolute;
+      z-index: 6;
+      top: 207px;
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 52px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.8);
+      color: #756b60;
+      font-size: 34px;
+      line-height: 1;
+      box-shadow: 0 8px 20px rgba(82,66,38,0.12);
+      backdrop-filter: blur(12px);
+    }
+
+    .atlas-arrow.is-left { left: -8px; }
+    .atlas-arrow.is-right { right: -8px; }
+
+    .atlas-panel {
+      position: relative;
+      z-index: 5;
+      margin-top: -36px;
+      padding: 19px 20px 20px;
+    }
+
+    .atlas-panel h2,
+    .detail-title h1,
+    .card-title {
+      margin: 0;
+      color: var(--ink);
+      font-size: 22px;
+      line-height: 1.2;
+      font-weight: 920;
+    }
+
+    .atlas-panel p,
+    .detail-title p {
+      margin: 8px 0 14px;
+      color: #6d6459;
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 650;
+    }
+
+    .flower-strip {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 5px;
+      margin: 12px 0 18px;
+    }
+
+    .flower-dot {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background: #eee8dc;
+      opacity: 0.8;
+    }
+
+    .flower-dot.is-done {
+      background:
+        radial-gradient(circle at center, #dfa42b 0 18%, transparent 19%),
+        conic-gradient(#fff 0 12%, transparent 12% 18%, #f7d45a 18% 30%, transparent 30% 36%, #f29aa2 36% 48%, transparent 48% 54%, #a88de7 54% 66%, transparent 66% 72%, #72bfe8 72% 84%, transparent 84% 90%, #f28a3b 90% 100%);
+      opacity: 1;
+    }
+
+    .atlas-dots {
+      display: flex;
+      justify-content: center;
+      gap: 13px;
+      margin-top: 20px;
+    }
+
+    .atlas-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #dad3c7;
+    }
+
+    .atlas-dot.is-active {
+      background: var(--leaf);
     }
 
     .subpage-bar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 12px;
-      margin: 14px 0 10px;
+      margin: 4px 0 16px;
     }
 
-    .back-button {
+    .back-button,
+    .mini-pill {
       display: inline-flex;
       align-items: center;
-      gap: 6px;
-      min-height: 36px;
-      padding: 6px 10px;
-      border: 1px solid var(--line);
+      justify-content: center;
+      min-height: 34px;
+      padding: 7px 12px;
+      border: 1px solid rgba(218, 209, 192, 0.9);
       border-radius: 999px;
-      background: #fff;
-      color: var(--ink);
-      font-size: 12px;
-      font-weight: 760;
+      background: rgba(255,255,255,0.78);
+      color: #5d554b;
+      font-size: 13px;
+      font-weight: 800;
     }
 
-    .garden-header h1 {
-      margin: 0;
-      font-size: 25px;
-      line-height: 1.14;
-      font-weight: 820;
-      letter-spacing: 0;
-    }
-
-    .garden-map {
+    .garden-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 16px;
+      gap: 12px;
+      margin-top: 18px;
     }
 
     .garden-slot {
       position: relative;
       display: grid;
-      place-items: center;
-      aspect-ratio: 1;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: #fff;
+      gap: 7px;
+      justify-items: center;
+      align-content: center;
+      min-height: 118px;
+      padding: 10px 7px;
+      border: 1px solid rgba(223, 214, 196, 0.9);
+      border-radius: 21px;
+      background: rgba(255,255,255,0.76);
       color: var(--muted);
-      font-size: 11px;
-      font-weight: 760;
+      font-size: 12px;
+      font-weight: 780;
+      box-shadow: 0 5px 14px rgba(78,62,36,0.07);
     }
 
-    .garden-slot.is-grown {
-      border-color: #89c3a7;
-      background: #f1fbf6;
-      color: var(--ink);
-    }
-
-    .garden-slot.is-premium {
-      border-style: dashed;
-      background: #fffaf0;
+    .garden-slot.is-current {
+      border-color: #8dbf5a;
+      background: #f3f9ec;
     }
 
     .garden-slot.is-locked {
-      background: #f8f4ed;
-      color: #9a9389;
+      background: rgba(244,240,232,0.74);
+      color: #aaa195;
     }
 
-    .mini-flower {
-      position: relative;
-      width: 48px;
-      height: 58px;
-    }
-
-    .mini-flower::before {
-      content: "";
-      position: absolute;
-      left: 22px;
-      bottom: 10px;
-      width: 4px;
-      height: 30px;
-      border-radius: 999px;
-      background: var(--leaf);
-    }
-
-    .mini-flower::after {
-      content: "";
-      position: absolute;
-      left: 10px;
-      top: 3px;
-      width: 28px;
-      height: 28px;
-      border: 2px solid var(--ink);
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at center, var(--sun) 0 33%, transparent 35%),
-        conic-gradient(var(--coral-soft) 0 16.66%, #fff 16.66% 18%, var(--coral-soft) 18% 33.3%, #fff 33.3% 35%, var(--coral-soft) 35% 50%, #fff 50% 52%, var(--coral-soft) 52% 66.6%, #fff 66.6% 68%, var(--coral-soft) 68% 83.3%, #fff 83.3% 85%, var(--coral-soft) 85% 100%);
-    }
-
-    .slot-label {
-      position: absolute;
-      right: 6px;
-      bottom: 5px;
-      left: 6px;
-      overflow: hidden;
-      text-align: center;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      font-size: 10px;
-    }
-
-    .atlas-copy {
-      margin: 18px 2px 0;
-      text-align: center;
-    }
-
-    .atlas-copy h1 {
-      margin: 0;
-      font-size: 28px;
-      line-height: 1.1;
-      font-weight: 830;
-      letter-spacing: 0;
-    }
-
-    .atlas-copy p {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.45;
-    }
-
-    .atlas-carousel {
-      position: relative;
-      min-height: 442px;
-      margin-top: 18px;
-      touch-action: pan-y;
-      user-select: none;
-    }
-
-    .atlas-arrow {
-      position: absolute;
-      z-index: 2;
-      top: 172px;
+    .slot-visual {
       display: grid;
       place-items: center;
-      width: 38px;
-      height: 46px;
-      border: 1px solid var(--line);
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: #fbf1dc;
+      color: #8d7f70;
+      font-size: 17px;
+      font-weight: 900;
+    }
+
+    .slot-visual.is-flower {
+      background:
+        radial-gradient(circle at center, #dfa42b 0 13%, transparent 14%),
+        conic-gradient(#fff 0 12%, transparent 12% 18%, #ffd95b 18% 30%, transparent 30% 36%, #f39aa3 36% 48%, transparent 48% 54%, #9b87df 54% 66%, transparent 66% 72%, #6ebce8 72% 84%, transparent 84% 90%, #f48d42 90% 100%),
+        #fff6e2;
+      filter: drop-shadow(0 2px 3px rgba(65,49,22,0.12));
+    }
+
+    .slot-visual.is-shadow {
+      background: #e9e2d7;
+      color: transparent;
+      mask: radial-gradient(circle at 50% 35%, #000 0 35%, transparent 36%), linear-gradient(#000 0 0) center 70% / 8px 42px no-repeat;
+      -webkit-mask: radial-gradient(circle at 50% 35%, #000 0 35%, transparent 36%), linear-gradient(#000 0 0) center 70% / 8px 42px no-repeat;
+    }
+
+    .vip-tag {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      padding: 3px 6px;
       border-radius: 999px;
-      background: rgba(255, 253, 248, 0.9);
-      color: var(--ink);
-      font-size: 26px;
-      font-weight: 760;
-      box-shadow: 0 8px 18px rgba(49, 42, 31, 0.08);
+      background: #ffe2a2;
+      color: #9b6412;
+      font-size: 10px;
+      font-weight: 900;
     }
 
-    .atlas-arrow.is-left {
-      left: 0;
-    }
-
-    .atlas-arrow.is-right {
-      right: 0;
-    }
-
-    .atlas-stage {
+    .flower-detail-art {
       position: relative;
+      height: 360px;
+      margin: 0 -20px 0;
+      background:
+        radial-gradient(circle at 20% 72%, rgba(111, 153, 72, 0.18), transparent 25%),
+        radial-gradient(circle at 88% 82%, rgba(125, 164, 83, 0.14), transparent 24%),
+        linear-gradient(180deg, #fff9ed, #f6ead6);
+    }
+
+    .flower-detail-art .plant-scene {
+      bottom: 38px;
+      transform: translateX(-50%) scale(1.1);
+    }
+
+    .detail-card {
+      position: relative;
+      z-index: 2;
+      margin-top: -40px;
+      padding: 20px;
+    }
+
+    .stage-list {
       display: grid;
-      justify-items: center;
-      padding: 0 22px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin: 16px 0;
     }
 
-    .garden-visual {
-      position: relative;
-      width: min(100%, 302px);
-      aspect-ratio: 1;
-      margin: 0 auto;
-      border: 2px solid var(--ink);
-      border-radius: 34% 38% 32% 36%;
-      background:
-        radial-gradient(circle at 50% 48%, rgba(255, 255, 255, 0.75) 0 13%, transparent 14%),
-        linear-gradient(145deg, #dff3e9 0%, #c7e8d7 100%);
-      box-shadow: 8px 10px 0 rgba(40, 37, 34, 0.11);
-    }
-
-    .garden-visual.is-special {
-      background:
-        radial-gradient(circle at 52% 42%, rgba(255, 255, 255, 0.75) 0 12%, transparent 13%),
-        linear-gradient(145deg, #e6e2f6 0%, #d7eef2 100%);
-    }
-
-    .garden-visual.is-locked {
-      background:
-        radial-gradient(circle at 50% 48%, rgba(255, 255, 255, 0.72) 0 13%, transparent 14%),
-        linear-gradient(145deg, #ebe7dd 0%, #dfe5d9 100%);
-    }
-
-    .garden-visual::before {
-      content: "";
-      position: absolute;
-      inset: 26px;
-      border: 1px dashed rgba(40, 37, 34, 0.18);
-      border-radius: 36% 33% 40% 31%;
-    }
-
-    .garden-path {
-      position: absolute;
-      left: 50%;
-      bottom: 23px;
-      width: 68px;
-      height: 120px;
-      border-radius: 999px 999px 0 0;
-      background: rgba(255, 240, 197, 0.78);
-      transform: translateX(-50%);
-    }
-
-    .garden-pond {
-      position: absolute;
-      right: 45px;
-      bottom: 64px;
-      width: 64px;
-      height: 38px;
-      border: 2px solid rgba(40, 37, 34, 0.58);
-      border-radius: 50%;
-      background: #e4f1f7;
-    }
-
-    .atlas-flower {
-      position: absolute;
-      left: var(--x);
-      top: var(--y);
-      width: var(--s);
-      height: calc(var(--s) * 1.2);
-      opacity: 0.96;
-      transform: translate(-50%, -50%) rotate(var(--r));
-    }
-
-    .atlas-flower::before {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: 0;
-      width: 3px;
-      height: 58%;
+    .stage-token {
+      min-height: 44px;
       border-radius: 999px;
-      background: var(--leaf);
-      transform: translateX(-50%);
+      border: 1px solid #ddd4c4;
+      background: rgba(255,255,255,0.78);
+      color: #7a7167;
+      font-size: 12px;
+      font-weight: 820;
     }
 
-    .atlas-flower::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      top: 0;
-      width: 58%;
-      aspect-ratio: 1;
-      border: 2px solid var(--ink);
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at center, var(--sun) 0 28%, transparent 30%),
-        conic-gradient(var(--bloom) 0 15%, #fffdf8 15% 18%, var(--bloom) 18% 32%, #fffdf8 32% 35%, var(--bloom) 35% 49%, #fffdf8 49% 52%, var(--bloom) 52% 66%, #fffdf8 66% 69%, var(--bloom) 69% 83%, #fffdf8 83% 86%, var(--bloom) 86% 100%);
-      transform: translateX(-50%);
+    .stage-token.is-active {
+      border-color: #94bf72;
+      background: #e9f5dd;
+      color: var(--leaf-dark);
     }
 
-    .atlas-flower.is-preview {
-      opacity: 0.76;
-      filter: saturate(0.82);
-    }
-
-    .atlas-flower.is-premium-preview {
-      opacity: 0.34;
-    }
-
-    .garden-visual.is-locked .atlas-flower {
-      opacity: 0.42;
-      filter: grayscale(0.9);
-    }
-
-    .atlas-panel {
-      width: min(100%, 320px);
-      margin: -6px auto 0;
-      padding: 14px;
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.9);
-      box-shadow: 0 16px 36px rgba(49, 42, 31, 0.09);
+    .completion-hero {
+      display: grid;
+      align-content: center;
+      min-height: 650px;
       text-align: center;
     }
 
-    .atlas-panel h2 {
-      margin: 0;
-      font-size: 22px;
-      line-height: 1.15;
+    .completion-hero .plant-scene {
+      position: relative;
+      left: auto;
+      bottom: auto;
+      margin: 20px auto 6px;
+      transform: scale(1.1);
     }
 
-    .atlas-panel p {
-      margin: 7px 0 12px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.4;
+    .completion-hero h1 {
+      margin: 8px 0 8px;
+      font-size: 34px;
+      line-height: 1.1;
+      font-weight: 950;
     }
 
-    .atlas-panel .primary-button,
-    .atlas-panel .ghost-button {
-      margin-top: 12px;
-    }
-
-    .atlas-dots {
-      display: flex;
-      justify-content: center;
-      gap: 7px;
-      margin-top: 13px;
-    }
-
-    .atlas-dot {
-      width: 7px;
-      height: 7px;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      background: #fff;
-    }
-
-    .atlas-dot.is-active {
-      width: 20px;
-      border-color: var(--ink);
-      border-radius: 999px;
-      background: var(--ink);
+    .settings-list,
+    .share-card,
+    .products-card,
+    .deal-card {
+      border-radius: 22px;
+      border: 1px solid rgba(221, 213, 198, 0.78);
+      background: rgba(255,255,255,0.78);
+      box-shadow: var(--card-shadow);
+      backdrop-filter: blur(14px);
     }
 
     .us-page {
       display: grid;
-      gap: 10px;
-      padding: 12px 0 14px;
-    }
-
-    .deal-card,
-    .share-card,
-    .products-card {
-      border-radius: 18px;
-      overflow: hidden;
+      gap: 14px;
     }
 
     .deal-card {
-      position: relative;
       display: grid;
-      grid-template-columns: 92px 1fr;
-      gap: 12px;
+      grid-template-columns: 96px 1fr;
+      gap: 14px;
       align-items: center;
-      min-height: 88px;
-      padding: 10px 12px;
-      background: #ffd0d8;
-      color: #5a3f3f;
-    }
-
-    .deal-card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
+      min-height: 110px;
+      padding: 14px;
+      text-align: left;
       background:
-        radial-gradient(circle at 12% 20%, rgba(255, 255, 255, 0.48), transparent 24%),
-        radial-gradient(circle at 88% 80%, rgba(255, 255, 255, 0.34), transparent 26%);
-      pointer-events: none;
+        radial-gradient(circle at 83% 22%, rgba(255,255,255,0.66), transparent 22%),
+        linear-gradient(135deg, #ffe2e6, #fff2d4);
     }
 
     .deal-visual {
       position: relative;
-      height: 64px;
+      height: 70px;
     }
 
-    .deal-road {
-      position: absolute;
-      left: 1px;
-      bottom: 12px;
-      width: 84px;
-      height: 20px;
-      border: 3px solid var(--ink);
-      border-radius: 999px 999px 14px 14px;
-      background: var(--coral);
-      transform: rotate(-4deg);
-    }
-
-    .deal-road::before,
-    .deal-road::after {
+    .deal-visual::before {
       content: "";
       position: absolute;
-      bottom: -9px;
-      width: 15px;
-      height: 15px;
-      border: 3px solid var(--ink);
-      border-radius: 50%;
-      background: #fff;
+      left: 5px;
+      right: 5px;
+      bottom: 10px;
+      height: 20px;
+      border-radius: 18px 22px 8px 8px;
+      background: #f36b35;
     }
 
-    .deal-road::before {
-      left: 9px;
-    }
-
-    .deal-road::after {
-      right: 10px;
-    }
-
-    .deal-passenger {
+    .deal-visual::after {
+      content: "";
       position: absolute;
-      top: 13px;
-      width: 23px;
-      height: 28px;
-      border: 2px solid var(--ink);
-      border-radius: 10px;
-      background: var(--sun);
-    }
-
-    .deal-passenger.one {
-      left: 29px;
-    }
-
-    .deal-passenger.two {
-      left: 53px;
-      transform: rotate(8deg);
+      left: 24px;
+      top: 12px;
+      width: 50px;
+      height: 30px;
+      border-radius: 18px 18px 8px 8px;
+      background: #f9cd48;
     }
 
     .deal-copy {
-      position: relative;
+      display: grid;
+      gap: 4px;
     }
 
-    .deal-copy span {
-      display: block;
-      color: #f15b2a;
+    .deal-copy > span {
+      justify-self: start;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #ef7771;
+      color: #fff;
       font-size: 12px;
-      font-weight: 850;
-    }
-
-    .deal-copy strong {
-      display: block;
-      margin-top: 2px;
-      color: #4f3b3b;
-      font-size: 20px;
-      line-height: 1.1;
       font-weight: 900;
     }
 
+    .deal-copy strong {
+      color: #a54419;
+      font-size: 24px;
+      line-height: 1.1;
+      font-weight: 950;
+    }
+
     .deal-copy small {
-      display: block;
-      margin-top: 4px;
-      color: rgba(79, 59, 59, 0.66);
-      font-size: 10px;
-      line-height: 1.35;
-      font-weight: 700;
+      color: #756c61;
+      font-size: 12px;
+      font-weight: 650;
     }
 
     .settings-list {
+      display: grid;
       overflow: hidden;
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.92);
     }
 
     .settings-row {
       display: grid;
-      grid-template-columns: 30px 1fr 18px;
-      gap: 9px;
+      grid-template-columns: 36px 1fr 20px;
+      gap: 12px;
       align-items: center;
-      width: 100%;
-      min-height: 46px;
-      padding: 7px 12px;
-      border-bottom: 1px solid rgba(217, 210, 194, 0.62);
+      min-height: 60px;
+      padding: 10px 16px;
       background: transparent;
-      color: var(--ink);
+      color: #302c27;
+      font-size: 17px;
+      font-weight: 780;
       text-align: left;
-      font-weight: 760;
     }
 
-    .settings-row:last-child {
-      border-bottom: 0;
+    .settings-row + .settings-row {
+      border-top: 1px solid rgba(221, 213, 198, 0.8);
     }
 
     .settings-icon {
       display: grid;
       place-items: center;
-      width: 27px;
-      height: 27px;
-      border: 1px solid rgba(40, 37, 34, 0.34);
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: var(--icon-bg);
-      font-size: 15px;
+      color: #4d504b;
+      font-size: 14px;
+      font-weight: 900;
     }
 
     .settings-arrow {
-      color: var(--muted);
-      font-size: 22px;
-      line-height: 1;
+      color: #70685e;
+      font-size: 24px;
     }
 
     .share-card {
       display: grid;
-      grid-template-columns: 1fr 92px;
-      gap: 10px;
-      align-items: center;
-      min-height: 88px;
-      padding: 12px 14px;
-      background: #cfeeff;
+      grid-template-columns: 1fr 120px;
+      min-height: 112px;
+      padding: 16px;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 92% 74%, rgba(111, 151, 68, 0.22), transparent 29%),
+        linear-gradient(135deg, #f4fbec, #edf8e5);
     }
 
     .share-card p {
-      margin: 0 0 9px;
-      color: #5a646e;
-      font-size: 14px;
-      font-weight: 760;
+      margin: 3px 0 13px;
+      color: #4b443c;
+      font-size: 16px;
+      line-height: 1.35;
+      font-weight: 780;
     }
 
     .share-button {
-      min-height: 34px;
-      padding: 8px 14px;
+      min-height: 38px;
+      padding: 8px 18px;
       border-radius: 999px;
-      background: #2c7df0;
+      background: linear-gradient(180deg, #82b95a, #5f9137);
       color: #fff;
-      font-size: 13px;
       font-weight: 850;
-      box-shadow: 0 8px 18px rgba(44, 125, 240, 0.24);
+      box-shadow: 0 6px 12px rgba(70, 105, 37, 0.22);
     }
 
     .share-visual {
       position: relative;
-      height: 66px;
     }
 
-    .share-cat {
-      position: absolute;
-      right: 8px;
-      bottom: 9px;
-      width: 46px;
-      height: 44px;
-      border: 2px solid var(--ink);
-      border-radius: 50% 50% 44% 44%;
-      background: #fff;
-    }
-
-    .share-cat::before,
-    .share-cat::after {
+    .share-visual::before,
+    .share-visual::after {
       content: "";
       position: absolute;
-      top: -8px;
-      width: 16px;
-      height: 16px;
-      border-top: 2px solid var(--ink);
-      border-left: 2px solid var(--ink);
-      background: #fff;
-      transform: rotate(45deg);
+      border-radius: 100% 0 100% 0;
+      background: linear-gradient(135deg, #a9c886, #dcedca);
     }
 
-    .share-cat::before {
-      left: 8px;
+    .share-visual::before {
+      right: 12px;
+      top: 6px;
+      width: 82px;
+      height: 42px;
+      transform: rotate(-24deg);
     }
 
-    .share-cat::after {
-      right: 8px;
-    }
-
-    .share-heart {
-      position: absolute;
-      right: 33px;
-      bottom: 0;
-      width: 38px;
-      height: 34px;
-      border-radius: 50% 50% 45% 45%;
-      background: var(--coral);
-      transform: rotate(-10deg);
+    .share-visual::after {
+      right: 4px;
+      bottom: 6px;
+      width: 102px;
+      height: 52px;
+      transform: rotate(-36deg);
     }
 
     .products-card {
-      padding: 12px 12px 10px;
-      background: rgba(255, 253, 248, 0.74);
-      text-align: center;
+      padding: 16px;
     }
 
     .products-card h2 {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: 10px;
-      align-items: center;
-      margin: 0 0 10px;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 760;
-    }
-
-    .products-card h2::before,
-    .products-card h2::after {
-      content: "";
-      height: 1px;
-      background: rgba(217, 210, 194, 0.85);
+      margin: 0 0 14px;
+      color: #302c27;
+      font-size: 17px;
+      font-weight: 850;
     }
 
     .product-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
+      gap: 10px;
     }
 
     .product-item {
       display: grid;
       justify-items: center;
-      gap: 7px;
-      background: transparent;
-      color: var(--ink);
-      font-size: 12px;
-      font-weight: 720;
+      gap: 8px;
+      min-height: 112px;
+      padding: 12px 6px;
+      border-radius: 16px;
+      border: 1px solid #eadfcf;
+      background: #fff8ea;
+      color: #27231f;
+      font-size: 13px;
+      font-weight: 780;
     }
 
     .product-icon {
       display: grid;
       place-items: center;
-      width: 50px;
-      height: 50px;
-      border-radius: 16px;
+      width: 56px;
+      height: 56px;
+      border-radius: 15px;
       background: var(--product-bg);
-      box-shadow: 0 9px 18px rgba(49, 42, 31, 0.1);
-      font-size: 26px;
+      color: #fff;
+      font-size: 24px;
     }
 
     .modal-backdrop {
       position: absolute;
+      z-index: 40;
       inset: 0;
-      z-index: 5;
       display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 22px;
-      background: rgba(40, 37, 34, 0.42);
+      align-items: end;
+      padding: 20px;
+      background: rgba(31, 27, 22, 0.28);
+      backdrop-filter: blur(6px);
     }
 
     .modal-backdrop.is-open {
@@ -1483,209 +1629,155 @@
 
     .modal-card {
       width: 100%;
-      max-width: 330px;
-      padding: 18px;
-      border: 1px solid var(--ink);
-      border-radius: 18px;
-      background: var(--paper);
-      box-shadow: 6px 6px 0 rgba(40, 37, 34, 0.18);
+      max-height: 78%;
+      overflow-y: auto;
+      padding: 22px;
+      border-radius: 26px;
+      border: 1px solid rgba(232, 223, 205, 0.9);
+      background: rgba(255, 253, 248, 0.96);
+      box-shadow: 0 18px 44px rgba(30, 25, 18, 0.22);
     }
 
     .modal-card h2 {
-      margin: 0;
-      font-size: 22px;
+      margin: 0 0 9px;
+      color: var(--ink);
+      font-size: 24px;
       line-height: 1.15;
-      letter-spacing: 0;
+      font-weight: 950;
     }
 
     .modal-card p {
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.5;
+      margin: 0 0 14px;
+      color: #665d52;
+      font-size: 15px;
+      line-height: 1.55;
+      font-weight: 620;
     }
 
-    .modal-metrics {
+    .benefit-list {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin: 14px 0;
+      gap: 9px;
+      margin: 16px 0;
+    }
+
+    .benefit-list span {
+      display: block;
+      padding: 10px 12px;
+      border-radius: 14px;
+      background: #fff8e8;
+      color: #5f5548;
+      font-size: 14px;
+      font-weight: 720;
     }
 
     .toast {
       position: absolute;
-      z-index: 10;
-      right: 92px;
-      top: 14px;
-      left: 92px;
-      display: none;
-      min-height: 36px;
-      align-items: center;
-      justify-content: center;
-      padding: 10px 12px;
-      border: 1px solid var(--ink);
-      border-radius: 12px;
-      background: #fff;
-      box-shadow: 4px 4px 0 rgba(40, 37, 34, 0.13);
-      text-align: center;
-      font-size: 12px;
+      z-index: 50;
+      left: 50%;
+      bottom: 114px;
+      max-width: 82%;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(36, 31, 25, 0.88);
+      color: #fff;
+      font-size: 13px;
       font-weight: 760;
+      opacity: 0;
       pointer-events: none;
+      transform: translate(-50%, 12px);
+      transition: opacity 0.18s ease, transform 0.18s ease;
     }
 
     .toast.is-visible {
-      display: flex;
-      animation: fadeToast 2.1s ease forwards;
+      opacity: 1;
+      transform: translate(-50%, 0);
     }
 
-    @keyframes fadeToast {
-      0% { opacity: 0; transform: translateY(8px); }
-      12% { opacity: 1; transform: translateY(0); }
-      78% { opacity: 1; transform: translateY(0); }
-      100% { opacity: 0; transform: translateY(8px); }
-    }
-
-    .control-panel {
+    .dev-panel {
       display: grid;
       gap: 12px;
     }
 
-    .control-card,
-    .panel-card {
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255, 253, 248, 0.86);
-      box-shadow: 0 12px 30px rgba(49, 42, 31, 0.08);
-      padding: 16px;
+    .control-card {
+      padding: 17px;
+      border: 1px solid rgba(221, 213, 198, 0.75);
+      border-radius: 18px;
+      background: rgba(255, 253, 248, 0.76);
+      backdrop-filter: blur(12px);
+      box-shadow: var(--card-shadow);
     }
 
-    .control-card p {
-      margin: 0 0 12px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.55;
+    .control-card h2 {
+      margin: 0 0 11px;
+      font-size: 16px;
+      font-weight: 900;
     }
 
-    .control-row {
-      display: grid;
-      gap: 7px;
-      margin-top: 12px;
-    }
-
-    .control-row label {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 740;
-    }
-
-    input[type="range"] {
-      width: 100%;
-      accent-color: var(--leaf);
-    }
-
-    .segmented {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 6px;
-      padding: 5px;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      background: #fff;
-    }
-
-    .segmented button {
-      min-height: 38px;
-      border-radius: 8px;
-      background: transparent;
-      color: var(--muted);
-      font-weight: 780;
-    }
-
-    .segmented button.is-active {
-      background: var(--ink);
-      color: #fff;
-    }
-
-    .quick-grid {
+    .control-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 8px;
-      margin-top: 10px;
     }
 
-    .square-button {
-      min-height: 40px;
+    .control-button {
+      min-height: 38px;
       border: 1px solid var(--line);
+      border-radius: 12px;
       background: #fff;
       color: var(--ink);
-      font-size: 12px;
-      font-weight: 780;
+      font-size: 13px;
+      font-weight: 820;
+    }
+
+    .control-button.is-active {
+      background: var(--ink);
+      color: #fff;
     }
 
     .state-list {
       display: grid;
       gap: 8px;
-      margin-top: 10px;
     }
 
     .state-list div {
       display: flex;
       justify-content: space-between;
-      gap: 10px;
-      padding-bottom: 7px;
-      border-bottom: 1px solid rgba(217, 210, 194, 0.75);
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .state-list div:last-child {
-      border-bottom: 0;
-      padding-bottom: 0;
+      gap: 12px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid rgba(221, 213, 198, 0.7);
+      color: #746c61;
+      font-size: 13px;
     }
 
     .state-list strong {
       color: var(--ink);
-      text-align: right;
     }
 
-    .hidden {
-      display: none !important;
-    }
+    @media (max-width: 900px) {
+      body {
+        background: var(--paper);
+      }
 
-    @media (max-width: 880px) {
       .prototype-shell {
-        grid-template-columns: 1fr;
+        display: block;
+        width: 100%;
+        padding: 0;
       }
 
-      .stage-label {
-        align-items: start;
-        flex-direction: column;
+      .stage-label,
+      .dev-panel {
+        display: none;
       }
 
-      .phone {
+      .phone-frame {
         position: relative;
-        top: auto;
-      }
-    }
-
-    @media (max-width: 440px) {
-      .prototype-shell {
-        padding-right: 10px;
-        padding-left: 10px;
-      }
-
-      .phone {
-        border-width: 8px;
-        border-radius: 30px;
-      }
-
-      .screen,
-      .screen-inner {
-        height: 720px;
-        min-height: 720px;
+        top: 0;
+        width: 100vw;
+        max-width: 430px;
+        height: 100svh;
+        min-height: 760px;
+        margin: 0 auto;
+        box-shadow: none;
       }
     }
   </style>
@@ -1694,87 +1786,85 @@
   <main class="prototype-shell">
     <div class="stage-label">
       <div>
-        <strong>步步花园 MVP 线框原型</strong>
-        <span>交互流：授权、步数换浇花机会、花园收集、我们页</span>
+        <strong>步步花园 MVP 半高保真原型</strong>
+        <span>iPhone 15 Pro Max 430 x 932；授权、今日、图鉴、花园、花朵与 VIP 闭环</span>
       </div>
-      <span id="prototypeVersion">Prototype v0.1</span>
+      <span>Prototype v0.2</span>
     </div>
 
-    <section class="phone" aria-label="移动端原型">
-      <div class="screen" id="appScreen">
+    <section class="phone-frame" aria-label="iPhone 15 Pro Max 原型画布">
+      <div class="screen">
+        <div class="status-bar" aria-hidden="true">
+          <span>9:41</span>
+          <span class="signal">
+            <span class="bars"><span></span><span></span><span></span><span></span></span>
+            <span class="wifi"></span>
+            <span class="battery"></span>
+          </span>
+        </div>
         <div class="screen-inner" id="screenInner"></div>
+        <div id="navLayer"></div>
         <div class="modal-backdrop" id="modalLayer"></div>
         <div class="toast" id="toast"></div>
       </div>
     </section>
 
-    <aside class="control-panel" aria-label="原型控制台">
+    <aside class="dev-panel" aria-label="原型控制台">
       <section class="control-card">
         <h2>原型控制台</h2>
-        <p>这里用来模拟 Apple Health 步数、付费状态和结算状态，方便先打磨 UI 与核心循环。</p>
-
-        <div class="control-row">
-          <label for="todayStepsRange">
-            <span>今日步数</span>
-            <strong id="todayStepsLabel">0</strong>
-          </label>
-          <input id="todayStepsRange" type="range" min="0" max="5200" step="20" value="820">
-        </div>
-
-        <div class="quick-grid">
-          <button class="square-button" data-steps="300">300</button>
-          <button class="square-button" data-steps="500">500</button>
-          <button class="square-button" data-steps="1000">1000</button>
-          <button class="square-button" data-steps="1600">1600</button>
-          <button class="square-button" data-steps="3000">3000</button>
-          <button class="square-button" data-steps="4800">4800</button>
-        </div>
-
-        <div class="control-row">
-          <label>
-            <span>用户版本</span>
-            <strong id="planLabel">免费</strong>
-          </label>
-          <div class="segmented">
-            <button id="freePlanButton" type="button">免费</button>
-            <button id="premiumPlanButton" type="button">付费</button>
-          </div>
-        </div>
-
-        <div class="button-row">
-          <button class="ghost-button" id="showSettlementButton" type="button">补领预览</button>
-          <button class="ghost-button" id="resetButton" type="button">重置原型</button>
+        <p class="page-subtitle">用于快速模拟 Apple Health 步数、授权、VIP 与页面状态。</p>
+      </section>
+      <section class="control-card">
+        <h2>今日步数</h2>
+        <div class="control-grid">
+          <button class="control-button" data-steps="0" type="button">0</button>
+          <button class="control-button" data-steps="999" type="button">999</button>
+          <button class="control-button" data-steps="1000" type="button">1000</button>
+          <button class="control-button" data-steps="1999" type="button">1999</button>
+          <button class="control-button" data-steps="2000" type="button">2000</button>
+          <button class="control-button" data-steps="3000" type="button">3000</button>
         </div>
       </section>
-
+      <section class="control-card">
+        <h2>用户版本</h2>
+        <div class="control-grid">
+          <button class="control-button" id="freePlanButton" type="button">免费</button>
+          <button class="control-button" id="premiumPlanButton" type="button">VIP</button>
+          <button class="control-button" id="authToggleButton" type="button">授权</button>
+        </div>
+      </section>
+      <section class="control-card">
+        <h2>页面/状态</h2>
+        <div class="control-grid">
+          <button class="control-button" data-screen="onboarding" type="button">启动</button>
+          <button class="control-button" data-screen="health" type="button">授权页</button>
+          <button class="control-button" data-screen="today" type="button">今日</button>
+          <button class="control-button" data-screen="atlas" type="button">图鉴</button>
+          <button class="control-button" id="widgetPreviewButton" type="button">小组件</button>
+          <button class="control-button" id="syncDelayButton" type="button">同步延迟</button>
+        </div>
+      </section>
       <section class="control-card">
         <h2>当前状态</h2>
         <div class="state-list" id="stateList"></div>
       </section>
-
-      <section class="panel-card">
-        <h2>MVP 规则</h2>
-        <div class="state-list">
-          <div><span>最低有效目标</span><strong>500 步</strong></div>
-          <div><span>免费每日采纳</span><strong>1000 步</strong></div>
-          <div><span>付费每日采纳</span><strong>3000 步</strong></div>
-          <div><span>浇花机会</span><strong>500 步 / 1 次</strong></div>
-          <div><span>单花成长</span><strong>4 次绽放</strong></div>
-          <div><span>花园解锁</span><strong>10 朵普通花</strong></div>
-        </div>
+      <section class="control-card">
+        <button class="secondary-button" id="resetButton" type="button">重置原型</button>
       </section>
     </aside>
   </main>
 
   <script>
-    const STORAGE_KEY = "stepGardenWireframeState";
-    const STEPS_PER_WATERING = 500;
+    const STORAGE_KEY = "stepGardenMvpPrototypeStateV2";
+    const STEPS_PER_WATERING = 1000;
+    const FREE_DAILY_CAP = 2000;
+    const VIP_DAILY_CAP = 3000;
     const WATERINGS_PER_FLOWER = 4;
 
     const STAGES = [
       { id: "seed", label: "种子", summary: "刚刚种下，等待第一次浇水唤醒。" },
       { id: "sprout", label: "幼苗", summary: "叶片长出，花开始建立生命力。" },
-      { id: "bud", label: "花苞", summary: "花苞形成，下一次成长会接近绽放。" },
+      { id: "bud", label: "花苞", summary: "花苞形成，继续浇水就会接近绽放。" },
       { id: "bloom", label: "绽放", summary: "花已经绽放，可以种进花园收藏。" }
     ];
 
@@ -1782,52 +1872,34 @@
       {
         id: "dew",
         name: "晨露花园",
-        short: "晨",
         isSpecial: false,
         flowers: ["小雏菊", "蓝铃花", "晨光草", "蜜糖花", "橘风铃", "云边花", "雪绒花", "小蔷薇", "雨点兰", "星点草", "金盏花", "玻璃玫瑰"]
       },
       {
         id: "creek",
         name: "溪畔花园",
-        short: "溪",
         isSpecial: false,
         flowers: ["溪石花", "苔影兰", "青豆芽", "水纹菊", "芦叶花", "小睡莲", "银露草", "风铃藤", "浅蓝鸢尾", "月白花", "琥珀莲", "星河藤"]
       },
       {
         id: "star",
         name: "星光温室",
-        short: "星",
         isSpecial: true,
         flowers: ["夜灯花", "星砂草", "蓝月兰", "银边菊", "云母藤", "柔光蔷薇", "霜点草", "灯芯花", "薄雾莲", "晚安花", "金星花", "水晶兰"]
       }
     ];
 
-    const atlasFlowerLayout = [
-      [24, 28, 44, -8, "#ffe1d8"],
-      [46, 23, 36, 8, "#f8c7d8"],
-      [68, 30, 42, -14, "#fff0c5"],
-      [34, 48, 34, 18, "#cdebdc"],
-      [58, 48, 48, -4, "#d8d2f0"],
-      [78, 52, 34, 16, "#ffd8bd"],
-      [22, 66, 38, 10, "#d9ecff"],
-      [43, 70, 42, -16, "#f8c7d8"],
-      [64, 71, 36, 12, "#fff0c5"],
-      [80, 75, 40, -10, "#cdebdc"],
-      [33, 84, 34, 4, "#ffd8bd"],
-      [61, 86, 38, -6, "#d8d2f0"]
-    ];
-
     const defaultState = {
+      screen: "onboarding",
       authorized: false,
-      tab: "today",
+      hasSeenIntro: false,
       plan: "free",
-      todaySteps: 820,
-      yesterdaySteps: 1420,
+      todaySteps: 1420,
       usedWateringsToday: 0,
-      bonusWaterings: 0,
-      yesterdayClaimed: false,
       currentGardenIndex: 0,
       atlasGardenIndex: 0,
+      selectedGardenIndex: 0,
+      selectedFlowerIndex: 0,
       currentFlower: {
         gardenId: "dew",
         flowerIndex: 0,
@@ -1837,43 +1909,49 @@
         dew: [],
         creek: [],
         star: []
-      }
+      },
+      modal: null,
+      modalPayload: {}
     };
 
     let state = loadState();
     let toastTimer = null;
+    let atlasSwipeStart = null;
 
     const screenInner = document.getElementById("screenInner");
+    const navLayer = document.getElementById("navLayer");
     const modalLayer = document.getElementById("modalLayer");
     const toast = document.getElementById("toast");
-    const todayStepsRange = document.getElementById("todayStepsRange");
-    const todayStepsLabel = document.getElementById("todayStepsLabel");
-    const planLabel = document.getElementById("planLabel");
-    const freePlanButton = document.getElementById("freePlanButton");
-    const premiumPlanButton = document.getElementById("premiumPlanButton");
-    const showSettlementButton = document.getElementById("showSettlementButton");
-    const resetButton = document.getElementById("resetButton");
     const stateList = document.getElementById("stateList");
 
     function loadState() {
       try {
-        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || localStorage.getItem("stepGardenWireframeState"));
         if (!saved) return structuredClone(defaultState);
-        return {
+        const next = {
           ...structuredClone(defaultState),
           ...saved,
-          usedWateringsToday: saved.usedWateringsToday ?? Math.floor((saved.claimedDropsToday ?? 0) / 5),
-          bonusWaterings: saved.bonusWaterings ?? 0,
           currentFlower: {
             ...defaultState.currentFlower,
             ...(saved.currentFlower || {}),
-            growth: saved.currentFlower?.growth ?? Math.min(WATERINGS_PER_FLOWER, Math.floor((saved.currentFlower?.drops ?? 0) / 3))
+            growth: saved.currentFlower?.growth ?? Math.min(WATERINGS_PER_FLOWER, Math.floor((saved.currentFlower?.drops || 0) / 3))
           },
           progress: {
             ...defaultState.progress,
             ...(saved.progress || {})
-          }
+          },
+          modal: null,
+          modalPayload: {}
         };
+        if (!saved.screen) {
+          if (!next.authorized) next.screen = "onboarding";
+          else if (saved.tab === "atlas") next.screen = "atlas";
+          else if (saved.tab === "garden") next.screen = "garden";
+          else if (saved.tab === "pay") next.screen = "us";
+          else next.screen = "today";
+        }
+        next.usedWateringsToday = Math.min(next.usedWateringsToday || 0, wateringsFromStepsFor(next.todaySteps || 0, next.plan || "free"));
+        return next;
       } catch {
         return structuredClone(defaultState);
       }
@@ -1883,31 +1961,52 @@
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     }
 
+    function saveAndRender() {
+      saveState();
+      render();
+    }
+
     function capForPlan(plan = state.plan) {
-      return plan === "premium" ? 3000 : 1000;
+      return plan === "premium" ? VIP_DAILY_CAP : FREE_DAILY_CAP;
     }
 
     function acceptedSteps(steps = state.todaySteps) {
-      if (steps < 500) return 0;
-      return Math.min(steps, capForPlan());
+      return Math.min(Math.max(0, steps), capForPlan());
     }
 
-    function wateringsFromSteps(steps) {
-      return Math.floor(Math.min(steps, capForPlan()) / STEPS_PER_WATERING);
+    function wateringsFromStepsFor(steps, plan) {
+      const cap = plan === "premium" ? VIP_DAILY_CAP : FREE_DAILY_CAP;
+      return Math.floor(Math.min(Math.max(0, steps), cap) / STEPS_PER_WATERING);
+    }
+
+    function wateringsFromSteps(steps = state.todaySteps) {
+      return wateringsFromStepsFor(steps, state.plan);
     }
 
     function todayAvailableWaterings() {
-      return state.bonusWaterings + Math.max(0, wateringsFromSteps(state.todaySteps) - state.usedWateringsToday);
+      return Math.max(0, wateringsFromSteps() - state.usedWateringsToday);
     }
 
     function stepsUntilNextWatering() {
-      if (state.todaySteps >= capForPlan()) return 0;
-      const nextTarget = Math.ceil((state.todaySteps + 1) / STEPS_PER_WATERING) * STEPS_PER_WATERING;
+      const cap = capForPlan();
+      if (state.todaySteps >= cap) return 0;
+      const nextTarget = Math.min(cap, (Math.floor(state.todaySteps / STEPS_PER_WATERING) + 1) * STEPS_PER_WATERING);
       return Math.max(0, nextTarget - state.todaySteps);
+    }
+
+    function stageFromGrowth(growth = state.currentFlower.growth) {
+      if (growth >= WATERINGS_PER_FLOWER) return STAGES[3];
+      if (growth >= 2) return STAGES[2];
+      if (growth >= 1) return STAGES[1];
+      return STAGES[0];
     }
 
     function currentGarden() {
       return gardens[state.currentGardenIndex] || gardens[0];
+    }
+
+    function currentFlowerName() {
+      return flowerName(state.currentFlower.gardenId, state.currentFlower.flowerIndex);
     }
 
     function flowerName(gardenId, index) {
@@ -1915,56 +2014,19 @@
       return garden.flowers[index] || garden.flowers[0];
     }
 
-    function currentFlowerName() {
-      return flowerName(state.currentFlower.gardenId, state.currentFlower.flowerIndex);
-    }
-
-    function stageIndexFromGrowth(growth) {
-      if (growth >= WATERINGS_PER_FLOWER) return 3;
-      if (growth >= 2) return 2;
-      if (growth >= 1) return 1;
-      return 0;
-    }
-
-    function atlasIndex() {
-      return Math.max(0, Math.min(gardens.length - 1, state.atlasGardenIndex ?? state.currentGardenIndex));
-    }
-
-    function atlasFlowersMarkup(garden, unlocked) {
-      const done = state.progress[garden.id] || [];
-      return atlasFlowerLayout.map(([x, y, size, rotate, bloom], index) => {
-        const completed = done.includes(index);
-        const isPremium = index >= 10;
-        const className = [
-          "atlas-flower",
-          completed ? "" : "is-preview",
-          isPremium && state.plan !== "premium" ? "is-premium-preview" : "",
-          unlocked ? "" : "is-preview"
-        ].filter(Boolean).join(" ");
-
-        return `
-          <span class="${className}" style="--x: ${x}%; --y: ${y}%; --s: ${size}px; --r: ${rotate}deg; --bloom: ${bloom};"></span>
-        `;
-      }).join("");
-    }
-
-    function stageFromGrowth(growth) {
-      return STAGES[stageIndexFromGrowth(growth)];
-    }
-
-    function stageId() {
-      return stageFromGrowth(state.currentFlower.growth).id;
+    function gardenById(gardenId) {
+      return gardens.find((item) => item.id === gardenId) || gardens[0];
     }
 
     function completedCount(gardenId, onlyFree = false) {
       const ids = state.progress[gardenId] || [];
-      if (!onlyFree) return ids.length;
-      return ids.filter((index) => index < 10).length;
+      return ids.filter((id) => !onlyFree || id < 10).length;
     }
 
     function isGardenUnlocked(index) {
-      if (index === 0) return true;
       const garden = gardens[index];
+      if (!garden) return false;
+      if (index === 0) return true;
       if (garden.isSpecial && state.plan !== "premium") return false;
       const previous = gardens[index - 1];
       return completedCount(previous.id, true) >= 10;
@@ -1979,336 +2041,434 @@
       return null;
     }
 
-    function ensureCurrentFlower() {
+    function normalizeCurrentFlower() {
       const garden = currentGarden();
-      const currentDone = state.progress[state.currentFlower.gardenId] || [];
-      const currentMax = state.plan === "premium" ? 12 : 10;
-      const currentInvalid = state.currentFlower.flowerIndex >= currentMax;
-      const alreadyDone = currentDone.includes(state.currentFlower.flowerIndex);
-      const lockedGarden = !isGardenUnlocked(state.currentGardenIndex);
-
-      if (!lockedGarden && !alreadyDone && !currentInvalid && state.currentFlower.gardenId === garden.id) {
-        return;
-      }
-
-      const nextIndex = nextFlowerForGarden(garden.id);
-      if (nextIndex !== null) {
-        state.currentFlower = { gardenId: garden.id, flowerIndex: nextIndex, growth: 0 };
-      }
-    }
-
-    function setTab(tab) {
-      if (tab === "atlas" && typeof state.atlasGardenIndex !== "number") {
-        state.atlasGardenIndex = state.currentGardenIndex;
-      }
-      state.tab = tab;
-      saveAndRender();
-      screenInner.scrollTop = 0;
-    }
-
-    function moveAtlas(delta) {
-      const next = (atlasIndex() + delta + gardens.length) % gardens.length;
-      state.atlasGardenIndex = next;
-      saveAndRender();
-    }
-
-    function enterAtlasGarden(index) {
-      if (!isGardenUnlocked(index)) {
-        if (gardens[index].isSpecial && state.plan !== "premium") {
-          state.tab = "pay";
-          showToast("付费后开放特殊花园");
-          saveAndRender();
-          return;
-        }
-        showToast("先完成前一个花园");
-        return;
-      }
-
-      state.currentGardenIndex = index;
-      state.atlasGardenIndex = index;
-      const garden = currentGarden();
+      const done = state.progress[state.currentFlower.gardenId] || [];
+      const max = state.plan === "premium" ? 12 : 10;
+      const invalidPremium = state.currentFlower.flowerIndex >= max;
+      const alreadyCollected = done.includes(state.currentFlower.flowerIndex);
+      if (state.currentFlower.gardenId === garden.id && !invalidPremium && !alreadyCollected) return;
       const nextIndex = nextFlowerForGarden(garden.id) ?? 0;
-      state.currentFlower = {
-        gardenId: garden.id,
-        flowerIndex: nextIndex,
-        growth: 0
-      };
-      state.tab = "garden";
-      showToast(`进入${garden.name}`);
-      saveAndRender();
-    }
-
-    function saveAndRender() {
-      ensureCurrentFlower();
-      saveState();
-      render();
+      state.currentFlower = { gardenId: garden.id, flowerIndex: nextIndex, growth: 0 };
     }
 
     function showToast(message) {
       window.clearTimeout(toastTimer);
       toast.textContent = message;
       toast.classList.add("is-visible");
-      toastTimer = window.setTimeout(() => {
-        toast.classList.remove("is-visible");
-      }, 2100);
+      toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 1800);
     }
 
-    function plantMarkup(stage = stageId()) {
-      return `
-        <div class="plant" data-stage="${stage}" aria-hidden="true">
-          <div class="stem"></div>
-          <div class="leaf left"></div>
-          <div class="leaf right"></div>
-          <div class="seed"></div>
-          <div class="bud"></div>
-          <div class="flower-head">
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="petal"></div>
-            <div class="center"></div>
-          </div>
-          <div class="soil"></div>
-          <div class="pot"></div>
-        </div>
-      `;
+    function showModal(type, payload = {}) {
+      state.modal = type;
+      state.modalPayload = payload;
+      saveAndRender();
+    }
+
+    function closeModal() {
+      state.modal = null;
+      state.modalPayload = {};
+      saveAndRender();
     }
 
     function topBarMarkup() {
       return `
-        <div class="top-bar">
+        <header class="app-header">
           <div class="brand-mark">
-            <span class="mark-box">花</span>
-            <span>步步花园</span>
+            <span class="daisy-logo" aria-hidden="true"></span>
+            <span>步步花园</span><span class="leaf-dot">·</span>
           </div>
-          <span class="plan-pill ${state.plan === "premium" ? "is-premium" : ""}">
-            ${state.plan === "premium" ? "VIP" : "VIP"}
-          </span>
-        </div>
+          <button class="vip-pill" id="vipHeaderButton" type="button">
+            <span class="vip-crown" aria-hidden="true"></span>
+            VIP
+          </button>
+        </header>
       `;
     }
 
     function bottomNavMarkup() {
       const tabs = [
-        ["today", "今日"],
-        ["atlas", "图鉴"],
-        ["pay", "我们"]
+        ["today", "今日", "icon-today"],
+        ["atlas", "图鉴", "icon-atlas"],
+        ["us", "我们", "icon-us"]
       ];
       return `
         <nav class="bottom-nav" aria-label="底部导航">
-          ${tabs.map(([id, label]) => `
-            <button class="tab-button ${(state.tab === id || (state.tab === "garden" && id === "atlas")) ? "is-active" : ""}" data-tab="${id}" type="button">${label}</button>
+          ${tabs.map(([screen, label, icon]) => `
+            <button class="tab-button ${activeTab() === screen ? "is-active" : ""}" data-tab="${screen}" type="button">
+              <span class="tab-icon ${icon}" aria-hidden="true"></span>
+              <span>${label}</span>
+            </button>
           `).join("")}
         </nav>
       `;
     }
 
-    function renderAuth() {
-      screenInner.innerHTML = `
-        ${topBarMarkup()}
-        <section class="hero-copy">
-          <h1>每天走一点，花园慢慢盛开。</h1>
-          <p>连接 Apple Health 后，每 500 步会装满一次水壶，用来养成今天的小花。</p>
-        </section>
-        <div class="auth-visual">
-          <div class="scene-sun"></div>
-          ${plantMarkup("seed").replace('class="plant"', 'class="plant large-flower"')}
-          <div class="ground"></div>
-        </div>
-        <div class="status-card">
-          <h2>步数权限</h2>
-          <div class="progress-track"><div class="progress-fill is-water" style="width: 0%"></div></div>
-          <div class="progress-caption">
-            <span>只读取每日步数</span>
-            <span>HealthKit</span>
+    function activeTab() {
+      if (["atlas", "garden", "flower", "nextFlower", "gardenComplete"].includes(state.screen)) return "atlas";
+      if (state.screen === "us") return "us";
+      return "today";
+    }
+
+    function plantMarkup(stageId = stageFromGrowth().id) {
+      return `
+        <div class="plant-scene">
+          <div class="plant" data-stage="${stageId}">
+            <div class="seed-shape"></div>
+            <div class="stem"></div>
+            <div class="leaf left"></div>
+            <div class="leaf right"></div>
+            <div class="bud-shape"></div>
+            <div class="flower-head"></div>
+            <div class="soil"></div>
+            <div class="pot"></div>
           </div>
         </div>
+      `;
+    }
+
+    function stepSegmentsMarkup() {
+      const cap = capForPlan();
+      const accepted = acceptedSteps();
+      const segments = cap / STEPS_PER_WATERING;
+      return `
+        <div class="segmented-progress" style="--segments: ${segments}">
+          ${Array.from({ length: segments }, (_, index) => {
+            const start = index * STEPS_PER_WATERING;
+            const fill = Math.max(0, Math.min(1, (accepted - start) / STEPS_PER_WATERING)) * 100;
+            const earned = fill >= 100;
+            return `
+              <div class="segment">
+                <span class="drop-icon ${earned ? "is-earned" : ""}" aria-hidden="true"></span>
+                <div class="track-shell"><div class="track-fill" style="width: ${fill}%"></div></div>
+                <span class="segment-label ${earned ? "" : "is-muted"}">${STEPS_PER_WATERING}</span>
+              </div>
+            `;
+          }).join("")}
+        </div>
+      `;
+    }
+
+    function flowerStripMarkup(gardenId, count = 10) {
+      const done = state.progress[gardenId] || [];
+      return `
+        <div class="flower-strip" aria-label="花园收集进度">
+          ${Array.from({ length: count }, (_, index) => `<span class="flower-dot ${done.includes(index) ? "is-done" : ""}"></span>`).join("")}
+        </div>
+      `;
+    }
+
+    function renderOnboarding() {
+      navLayer.innerHTML = "";
+      screenInner.classList.add("no-nav");
+      screenInner.innerHTML = `
+        ${topBarMarkup()}
+        <section class="onboarding-hero">
+          <div class="onboarding-art">
+            <span class="window-frame"></span>
+            ${plantMarkup("bloom")}
+          </div>
+          <div>
+            <h1 class="page-title">每天走路，养出一座花园。</h1>
+            <p class="page-subtitle">步步花园会把 Apple Health 的每日步数变成浇水机会。每 1000 步浇一次，慢慢收集不同花园。</p>
+          </div>
+        </section>
         <div class="button-row">
-          <button class="secondary-button" id="authDenyButton" type="button">稍后再说</button>
-          <button class="primary-button" id="authButton" type="button">连接 Apple Health</button>
+          <button class="secondary-button" id="previewButton" type="button">先看看</button>
+          <button class="green-button" id="startHealthButton" type="button">开启步数授权</button>
+        </div>
+      `;
+    }
+
+    function renderHealth() {
+      navLayer.innerHTML = "";
+      screenInner.classList.add("no-nav");
+      screenInner.innerHTML = `
+        ${topBarMarkup()}
+        <section class="auth-card">
+          <div>
+            <h1 class="page-title">授权步数，开始养花。</h1>
+            <p class="page-subtitle">我们只读取 Apple Health 的每日步数，用来生成浇水机会；不会读取位置、心率或路线。</p>
+          </div>
+          <div class="soft-card">
+            <div class="privacy-list">
+              <div class="privacy-row"><span class="privacy-icon">1</span><span>每日步数用于计算浇水机会</span></div>
+              <div class="privacy-row"><span class="privacy-icon">2</span><span>免费每日采纳 2000 步，VIP 采纳 3000 步</span></div>
+              <div class="privacy-row"><span class="privacy-icon">3</span><span>拒绝授权后仍可浏览图鉴，但花不会成长</span></div>
+            </div>
+            <div class="notice-card">App Store 审核提示：权限弹窗前先解释用途，并提供稍后授权入口。</div>
+          </div>
+        </section>
+        <div class="button-row">
+          <button class="secondary-button" id="authDenyButton" type="button">暂不授权</button>
+          <button class="green-button" id="authButton" type="button">连接 Apple Health</button>
         </div>
       `;
     }
 
     function renderToday() {
-      const accepted = acceptedSteps();
+      normalizeCurrentFlower();
+      const stage = stageFromGrowth();
       const cap = capForPlan();
-      const earnedWaterings = wateringsFromSteps(state.todaySteps);
-      const availableWaterings = todayAvailableWaterings();
-      const currentStage = stageFromGrowth(state.currentFlower.growth);
-      const targetReached = state.todaySteps >= 500;
-      const flowerBloomed = state.currentFlower.growth >= WATERINGS_PER_FLOWER;
-      const canFillPct = availableWaterings > 0 ? 100 : 0;
-      let canLabel = "继续走走";
-      let canHint = `还差 ${stepsUntilNextWatering()} 步`;
-      let canDisabled = true;
-      let canReady = false;
+      const accepted = acceptedSteps();
+      const earned = wateringsFromSteps();
+      const available = todayAvailableWaterings();
+      const bloomed = state.currentFlower.growth >= WATERINGS_PER_FLOWER;
+      const canWater = state.authorized && available > 0 && !bloomed;
+      let buttonLabel = "继续走路";
+      let disabled = true;
 
-      if (flowerBloomed) {
-        canLabel = "已绽放";
-        canHint = "种进花园";
-      } else if (availableWaterings > 0) {
-        canLabel = "浇水";
-        canHint = `剩 ${availableWaterings} 次`;
-        canDisabled = false;
-        canReady = true;
-      } else if (targetReached) {
-        canLabel = "今日用完";
-        canHint = `已浇 ${state.usedWateringsToday} 次`;
+      if (!state.authorized) {
+        buttonLabel = "去授权 Apple Health";
+        disabled = false;
+      } else if (bloomed) {
+        buttonLabel = "查看绽放";
+        disabled = false;
+      } else if (canWater) {
+        buttonLabel = "点击浇水";
+        disabled = false;
+      } else if (state.todaySteps < cap) {
+        buttonLabel = `还差 ${stepsUntilNextWatering()} 步`;
+      } else if (state.todaySteps >= cap || earned <= state.usedWateringsToday) {
+        buttonLabel = "今日浇完";
       }
 
+      screenInner.classList.remove("no-nav");
+      navLayer.innerHTML = bottomNavMarkup();
       screenInner.innerHTML = `
         ${topBarMarkup()}
-        <section class="garden-scene home-scene">
-          ${plantMarkup(currentStage.id)}
-          <button class="current-stage-button" data-stage-info="${currentStage.id}" type="button">${currentStage.label}</button>
-          <div class="home-panel">
-            <div class="home-flower-line">
+        <section class="home-art">
+          <button class="stage-pill" data-stage-info="${stage.id}" type="button">${stage.label}</button>
+          ${plantMarkup(stage.id)}
+        </section>
+        <section class="today-card white-card">
+          <button class="flower-row" id="currentFlowerButton" type="button">
+            <span class="flower-thumb" aria-hidden="true"></span>
+            <span class="flower-title">
               <strong>${currentFlowerName()}</strong>
+              <span>${stage.label}${state.currentFlower.growth === 3 ? " · 还差 1 次绽放" : ""}</span>
+            </span>
+            <span class="chevron">›</span>
+          </button>
+          <div class="steps-block">
+            <span class="label">今日步数</span>
+            <div class="steps-number">
+              <strong>${state.todaySteps}</strong>
+              <span>/ ${cap} 步</span>
             </div>
-            <div class="home-panel-main">
-              <div class="home-step">
-                <span>今日步数</span>
-                <strong>${state.todaySteps}</strong>
-                <em>${accepted} / ${cap} 步 · ${earnedWaterings} 次机会</em>
-              </div>
-              <button class="water-can-button ${canReady ? "is-ready" : ""}" id="canActionButton" type="button" ${canDisabled ? "disabled" : ""}>
-                <span class="can-visual" aria-hidden="true">
-                  <span class="can-spout"></span>
-                  <span class="can-body"><span class="can-fill" style="height: ${canFillPct}%"></span></span>
-                  <span class="can-handle"></span>
-                </span>
-                <span class="can-caption">
-                  <strong>${canLabel}</strong>
-                  <span>${canHint}</span>
-                </span>
-              </button>
-            </div>
-            ${flowerBloomed ? '<button class="scene-plant-button" id="scenePlantButton" type="button">种进花园</button>' : ""}
+            ${stepSegmentsMarkup()}
+            <div class="rule-copy"><span class="rule-leaf" aria-hidden="true"></span><span>每达成 ${STEPS_PER_WATERING} 步，获得 1 次浇水机会</span></div>
+            ${!state.authorized ? `<div class="notice-card">需要授权 Apple Health 后，花才能根据步数成长。</div>` : ""}
+            ${state.authorized && state.todaySteps === 0 ? `<div class="notice-card">今天还没有同步到步数。走满 1000 步后，水壶会自动装满。</div>` : ""}
+            ${state.authorized && !bloomed && available <= 0 && state.todaySteps > 0 && state.todaySteps < cap ? `<div class="notice-card">还差 ${stepsUntilNextWatering()} 步，水壶就会装满。</div>` : ""}
+            ${state.authorized && state.plan === "free" && state.todaySteps >= FREE_DAILY_CAP ? `<div class="notice-card">免费用户今日已采纳 ${FREE_DAILY_CAP} 步。VIP 可采纳 ${VIP_DAILY_CAP} 步。</div>` : ""}
+            <button class="green-button" id="canActionButton" type="button" ${disabled ? "disabled" : ""}>
+              <span class="can-mini" aria-hidden="true"></span>${buttonLabel}
+            </button>
+            <p class="page-subtitle" style="margin-top: 12px;">已采纳 ${accepted} 步 · 今日获得 ${earned} 次机会 · 剩余 ${available} 次</p>
           </div>
         </section>
-        ${bottomNavMarkup()}
+      `;
+    }
+
+    function renderAtlas() {
+      const index = Math.max(0, Math.min(gardens.length - 1, state.atlasGardenIndex));
+      state.atlasGardenIndex = index;
+      const garden = gardens[index];
+      const freeDone = completedCount(garden.id, true);
+      const unlocked = isGardenUnlocked(index);
+      const current = index === state.currentGardenIndex;
+      const actionText = unlocked ? current ? "查看花园" : "进入花园" : garden.isSpecial && state.plan !== "premium" ? "解锁 VIP" : "先完成上一片";
+
+      screenInner.classList.remove("no-nav");
+      navLayer.innerHTML = bottomNavMarkup();
+      screenInner.innerHTML = `
+        ${topBarMarkup()}
+        <section class="garden-copy">
+          <h1 class="page-title">花园图鉴 <span class="leaf-dot">·</span></h1>
+          <p class="page-subtitle">收集 10 朵普通花，开启下一片花园。</p>
+        </section>
+        <section class="atlas-carousel">
+          <button class="atlas-arrow is-left" data-atlas-delta="-1" type="button" aria-label="上一个花园">‹</button>
+          <div class="garden-island ${unlocked ? "" : "is-locked"}">
+            <span class="garden-gate"></span>
+            <span class="garden-sign">${garden.name}</span>
+          </div>
+          <button class="atlas-arrow is-right" data-atlas-delta="1" type="button" aria-label="下一个花园">›</button>
+          <section class="atlas-panel white-card">
+            <h2>${garden.name}</h2>
+            <p>${unlocked ? current ? "当前花园" : "已解锁" : garden.isSpecial ? "VIP 特殊花园" : "未解锁"} · <strong style="color: var(--leaf)">${freeDone}</strong> / 10 普通花</p>
+            ${flowerStripMarkup(garden.id)}
+            <button class="${unlocked ? "green-button" : "secondary-button"}" id="atlasActionButton" data-garden-index="${index}" type="button">${actionText}</button>
+            <div class="atlas-dots">${gardens.map((_, dot) => `<span class="atlas-dot ${dot === index ? "is-active" : ""}"></span>`).join("")}</div>
+          </section>
+        </section>
       `;
     }
 
     function renderGarden() {
       const garden = currentGarden();
-      const done = state.progress[garden.id] || [];
       const freeDone = completedCount(garden.id, true);
-      const gardenPct = Math.min(100, Math.round((freeDone / 10) * 100));
-      const canNext = freeDone >= 10 && gardens[state.currentGardenIndex + 1] && isGardenUnlocked(state.currentGardenIndex + 1);
+      const complete = freeDone >= 10;
 
+      screenInner.classList.remove("no-nav");
+      navLayer.innerHTML = bottomNavMarkup();
       screenInner.innerHTML = `
         ${topBarMarkup()}
         <div class="subpage-bar">
-          <button class="back-button" id="gardenBackButton" type="button">‹ 图鉴</button>
-          <span class="outline-pill">花园详情</span>
+          <button class="back-button" id="backToAtlasButton" type="button">‹ 图鉴</button>
+          <span class="mini-pill">${garden.isSpecial ? "特殊花园" : "当前花园"}</span>
         </div>
-        <section class="garden-header">
-          <div>
-            <h1>${garden.name}</h1>
-            <p class="soft-copy">${freeDone} / 10 朵普通花</p>
-          </div>
-          <span class="outline-pill">${garden.isSpecial ? "特殊花园" : "当前花园"}</span>
+        <section class="detail-title">
+          <h1>${garden.name}</h1>
+          <p>${freeDone} / 10 朵普通花 · 集满后开启下一片花园</p>
         </section>
-        <div class="progress-track" style="margin-top: 14px;">
-          <div class="progress-fill" style="width: ${gardenPct}%"></div>
+        <div class="garden-island" style="height: 250px; margin: 10px -10px -6px;">
+          <span class="garden-gate"></span>
+          <span class="garden-sign">${garden.name}</span>
         </div>
-
-        <section class="garden-map">
+        <section class="garden-grid">
           ${garden.flowers.map((name, index) => {
+            const done = (state.progress[garden.id] || []).includes(index);
             const isPremium = index >= 10;
-            const isDone = done.includes(index);
-            const isLocked = isPremium && state.plan !== "premium";
+            const locked = isPremium && state.plan !== "premium";
+            const current = state.currentFlower.gardenId === garden.id && state.currentFlower.flowerIndex === index;
             return `
-              <button class="garden-slot ${isDone ? "is-grown" : ""} ${isPremium ? "is-premium" : ""} ${isLocked ? "is-locked" : ""}" data-slot="${index}" type="button">
-                ${isDone ? '<div class="mini-flower"></div>' : isLocked ? "PRO" : index + 1}
-                <span class="slot-label">${name}</span>
+              <button class="garden-slot ${current ? "is-current" : ""} ${locked ? "is-locked" : ""}" data-slot="${index}" type="button">
+                ${isPremium ? `<span class="vip-tag">VIP</span>` : ""}
+                <span class="slot-visual ${done ? "is-flower" : locked ? "" : "is-shadow"}">${locked ? "VIP" : ""}</span>
+                <span>${name}</span>
               </button>
             `;
           }).join("")}
         </section>
-
-        <div class="section-stack">
-          ${freeDone >= 10 ? `
-            <div class="status-card is-highlight">
-              <h2>${garden.name}已全部解锁</h2>
-              <p class="soft-copy">普通花收集完成，可以进入下一个花园。</p>
-              <button class="primary-button" id="nextGardenButton" type="button" ${canNext ? "" : "disabled"}>进入下一花园</button>
-            </div>
-          ` : `
-            <div class="status-card">
-              <h2>下一个目标</h2>
-              <p class="soft-copy">再养成 ${10 - freeDone} 朵普通花，完整解锁这个花园。</p>
-            </div>
-          `}
-        </div>
-        ${bottomNavMarkup()}
+        ${complete ? `
+          <section class="notice-card">
+            <strong>${garden.name}已完成</strong>
+            <span>普通花已集齐，可以进入下一片花园。</span>
+            <button class="green-button" id="nextGardenButton" type="button">进入下一花园</button>
+          </section>
+        ` : ""}
       `;
     }
 
-    function renderAtlas() {
-      const index = atlasIndex();
-      const garden = gardens[index];
-      const freeDone = completedCount(garden.id, true);
-      const unlocked = isGardenUnlocked(index);
-      const current = index === state.currentGardenIndex;
-      const complete = freeDone >= 10;
-      const statusText = unlocked
-        ? current ? "当前花园" : "已解锁"
-        : garden.isSpecial && state.plan !== "premium" ? "付费特殊花园" : "未解锁";
-      const actionText = unlocked
-        ? current ? "查看花园" : "进入花园"
-        : garden.isSpecial && state.plan !== "premium" ? "解锁付费版" : "先完成上一片";
-      const actionEnabled = unlocked || (garden.isSpecial && state.plan !== "premium");
+    function renderFlowerDetail() {
+      const garden = gardens[state.selectedGardenIndex] || currentGarden();
+      const flowerIndex = state.selectedFlowerIndex;
+      const isCurrent = state.currentFlower.gardenId === garden.id && state.currentFlower.flowerIndex === flowerIndex;
+      const collected = (state.progress[garden.id] || []).includes(flowerIndex);
+      const locked = flowerIndex >= 10 && state.plan !== "premium";
+      const stage = isCurrent ? stageFromGrowth() : collected ? STAGES[3] : STAGES[0];
 
+      screenInner.classList.remove("no-nav");
+      navLayer.innerHTML = bottomNavMarkup();
       screenInner.innerHTML = `
         ${topBarMarkup()}
-        <section class="atlas-copy">
-          <h1>花园图鉴</h1>
-          <p>左右切换花园，收集 10 朵普通花后开启下一片。</p>
+        <div class="subpage-bar">
+          <button class="back-button" id="backToGardenButton" type="button">‹ 花园</button>
+          <span class="mini-pill">${garden.name}</span>
+        </div>
+        <section class="flower-detail-art">
+          ${plantMarkup(stage.id)}
         </section>
-        <section class="atlas-carousel">
-          <button class="atlas-arrow is-left" data-atlas-delta="-1" type="button" aria-label="上一个花园">&lsaquo;</button>
-          <div class="atlas-stage">
-            <div class="garden-visual ${garden.isSpecial ? "is-special" : ""} ${unlocked ? "" : "is-locked"}" aria-label="${garden.name}">
-              <span class="garden-path"></span>
-              <span class="garden-pond"></span>
-              ${atlasFlowersMarkup(garden, unlocked)}
-            </div>
-            <div class="atlas-panel">
-              <h2>${garden.name}</h2>
-              <p>${statusText} · ${freeDone} / 10 普通花${complete ? " · 已绽放" : ""}</p>
-              <div class="progress-track">
-                <div class="progress-fill ${garden.isSpecial ? "is-sun" : ""}" style="width: ${Math.min(100, freeDone * 10)}%"></div>
-              </div>
-              <button class="${unlocked ? "primary-button" : "ghost-button"}" id="atlasActionButton" data-garden-index="${index}" type="button" ${actionEnabled ? "" : "disabled"}>
-                ${actionText}
-              </button>
-              <div class="atlas-dots" aria-hidden="true">
-                ${gardens.map((_, dotIndex) => `<span class="atlas-dot ${dotIndex === index ? "is-active" : ""}"></span>`).join("")}
-              </div>
-            </div>
+        <section class="detail-card white-card">
+          <div class="detail-title">
+            <h1>${flowerName(garden.id, flowerIndex)}</h1>
+            <p>${collected ? "已收集" : isCurrent ? "正在养成" : locked ? "VIP 限定花" : "未收集"} · ${stage.label}</p>
           </div>
-          <button class="atlas-arrow is-right" data-atlas-delta="1" type="button" aria-label="下一个花园">&rsaquo;</button>
+          <div class="stage-list">
+            ${STAGES.map((item) => `<button class="stage-token ${item.id === stage.id ? "is-active" : ""}" data-stage-info="${item.id}" type="button">${item.label}</button>`).join("")}
+          </div>
+          <p class="page-subtitle">这个品种共有 4 种形态。每完成 1 次浇水，形态会向下一阶段推进。</p>
+          <div class="button-row">
+            <button class="secondary-button" id="backToGardenButton2" type="button">返回花园</button>
+            ${locked ? `<button class="green-button" data-vip-reason="解锁 VIP 限定花" type="button">解锁 VIP</button>`
+              : isCurrent ? `<button class="green-button" data-screen="today" type="button">继续养成</button>`
+              : collected ? `<button class="green-button" data-screen="atlas" type="button">查看图鉴</button>`
+              : `<button class="green-button" data-pick-flower="${flowerIndex}" type="button">设为下一朵</button>`}
+          </div>
         </section>
-        ${bottomNavMarkup()}
       `;
     }
 
-    function renderPay() {
+    function renderNextFlower() {
+      const garden = currentGarden();
+      screenInner.classList.remove("no-nav");
+      navLayer.innerHTML = bottomNavMarkup();
+      screenInner.innerHTML = `
+        ${topBarMarkup()}
+        <div class="subpage-bar">
+          <button class="back-button" id="backToGardenButton" type="button">‹ 花园</button>
+          <span class="mini-pill">选择下一朵</span>
+        </div>
+        <section class="detail-title">
+          <h1>种下一朵花</h1>
+          <p>${garden.name} · 选择一个未收集的品种继续养成。</p>
+        </section>
+        <section class="garden-grid">
+          ${garden.flowers.map((name, index) => {
+            const done = (state.progress[garden.id] || []).includes(index);
+            const isPremium = index >= 10;
+            const locked = isPremium && state.plan !== "premium";
+            return `
+              <button class="garden-slot ${locked ? "is-locked" : ""}" data-pick-flower="${index}" type="button" ${done ? "disabled" : ""}>
+                ${isPremium ? `<span class="vip-tag">VIP</span>` : ""}
+                <span class="slot-visual ${done ? "is-flower" : locked ? "" : "is-shadow"}">${locked ? "VIP" : ""}</span>
+                <span>${done ? "已收集 · " : ""}${name}</span>
+              </button>
+            `;
+          }).join("")}
+        </section>
+      `;
+    }
+
+    function renderBloom() {
+      navLayer.innerHTML = "";
+      screenInner.classList.add("no-nav");
+      screenInner.innerHTML = `
+        ${topBarMarkup()}
+        <section class="completion-hero">
+          ${plantMarkup("bloom")}
+          <h1>${currentFlowerName()}绽放了</h1>
+          <p class="page-subtitle">所属花园：${gardenById(state.currentFlower.gardenId).name}<br>新增图鉴：等待种进花园</p>
+          <div class="button-row">
+            <button class="secondary-button" id="bloomAtlasButton" type="button">查看图鉴</button>
+            <button class="green-button" id="bloomNextButton" type="button">种下一朵</button>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderGardenComplete() {
+      const garden = currentGarden();
+      navLayer.innerHTML = bottomNavMarkup();
+      screenInner.classList.remove("no-nav");
+      screenInner.innerHTML = `
+        ${topBarMarkup()}
+        <section class="completion-hero">
+          <div class="garden-island" style="height: 330px; margin: 0 -10px;">
+            <span class="garden-gate"></span>
+            <span class="garden-sign">${garden.name}</span>
+          </div>
+          <h1>${garden.name}完成</h1>
+          <p class="page-subtitle">已收集 10 朵普通花，下一片花园已开放。</p>
+          <div class="button-row">
+            <button class="secondary-button" data-screen="garden" type="button">留在这里</button>
+            <button class="green-button" id="nextGardenButton" type="button">进入下一花园</button>
+          </div>
+        </section>
+      `;
+    }
+
+    function renderUs() {
       const premium = state.plan === "premium";
+      screenInner.classList.remove("no-nav");
+      navLayer.innerHTML = bottomNavMarkup();
       screenInner.innerHTML = `
         ${topBarMarkup()}
         <section class="us-page">
           <button class="deal-card" id="upgradeButton" type="button">
-            <span class="deal-visual" aria-hidden="true">
-              <span class="deal-passenger one"></span>
-              <span class="deal-passenger two"></span>
-              <span class="deal-road"></span>
-            </span>
+            <span class="deal-visual" aria-hidden="true"></span>
             <span class="deal-copy">
               <span>${premium ? "已开启" : "限时特惠"}</span>
               <strong>${premium ? "高级版已解锁" : "买断仅需 ¥28.00"}</strong>
@@ -2318,22 +2478,22 @@
 
           <section class="settings-list">
             <button class="settings-row" data-toast="反馈入口已记录" type="button">
-              <span class="settings-icon" style="--icon-bg: #cdebbf;">✉</span>
+              <span class="settings-icon" style="--icon-bg: #d9ebcf;">信</span>
               <span>反馈与建议</span>
               <span class="settings-arrow">›</span>
             </button>
             <button class="settings-row" data-toast="协议与隐私二级入口待设计" type="button">
-              <span class="settings-icon" style="--icon-bg: #ccecff;">♙</span>
+              <span class="settings-icon" style="--icon-bg: #dbeaf8;">隐</span>
               <span>协议与隐私</span>
               <span class="settings-arrow">›</span>
             </button>
             <button class="settings-row" data-toast="数据备份会在后续版本开放" type="button">
-              <span class="settings-icon" style="--icon-bg: #c9edff;">☁</span>
+              <span class="settings-icon" style="--icon-bg: #fae4a6;">云</span>
               <span>数据备份</span>
               <span class="settings-arrow">›</span>
             </button>
             <button class="settings-row" data-toast="步步花园，一个轻量步数养花原型" type="button">
-              <span class="settings-icon" style="--icon-bg: #ffd65c;">●</span>
+              <span class="settings-icon" style="--icon-bg: #e5daf4;">i</span>
               <span>关于我们</span>
               <span class="settings-arrow">›</span>
             </button>
@@ -2344,17 +2504,14 @@
               <p>感谢支持独立开发团队</p>
               <button class="share-button" data-toast="分享卡片已准备好" type="button">分享我们</button>
             </div>
-            <div class="share-visual" aria-hidden="true">
-              <span class="share-heart"></span>
-              <span class="share-cat"></span>
-            </div>
+            <div class="share-visual" aria-hidden="true"></div>
           </section>
 
           <section class="products-card">
             <h2>我们的其他作品</h2>
             <div class="product-grid">
               <button class="product-item" data-toast="罐头冥想" type="button">
-                <span class="product-icon" style="--product-bg: #2f69d9;">💫</span>
+                <span class="product-icon" style="--product-bg: #2f69d9;">想</span>
                 <span>罐头冥想</span>
               </button>
               <button class="product-item" data-toast="目标罐头" type="button">
@@ -2362,13 +2519,12 @@
                 <span>目标罐头</span>
               </button>
               <button class="product-item" data-toast="手帐罐头" type="button">
-                <span class="product-icon" style="--product-bg: #ffc92e;">✎</span>
+                <span class="product-icon" style="--product-bg: #ffc92e;">记</span>
                 <span>手帐罐头</span>
               </button>
             </div>
           </section>
         </section>
-        ${bottomNavMarkup()}
       `;
     }
 
@@ -2380,108 +2536,164 @@
       }
 
       if (state.modal === "stageInfo") {
-        const stage = STAGES.find((item) => item.id === state.stageInfoId) || stageFromGrowth(state.currentFlower.growth);
+        const stage = STAGES.find((item) => item.id === state.modalPayload.stageId) || stageFromGrowth();
         modalLayer.innerHTML = `
           <article class="modal-card">
             <h2>${stage.label}</h2>
-            <p>${currentFlowerName()}共有 ${STAGES.length} 种形态：${STAGES.map((item) => item.label).join("、")}。</p>
+            <p>${currentFlowerName()}共有 4 种形态：种子、幼苗、花苞、绽放。</p>
             <p>${stage.summary}</p>
-            <button class="primary-button" id="closeModalButton" type="button" style="margin-top: 14px;">知道了</button>
+            <button class="green-button" id="closeModalButton" type="button">知道了</button>
           </article>
         `;
         return;
       }
 
-      const waterings = wateringsFromSteps(state.yesterdaySteps);
-      const accepted = state.yesterdaySteps < 500 ? 0 : Math.min(state.yesterdaySteps, capForPlan());
-      modalLayer.innerHTML = `
-        <article class="modal-card">
-          <h2>补领浇花机会</h2>
-          <p>如果当天忘记打开 App，可以在这里预览补领逻辑；今日同步到的步数会在首页直接变成浇花机会。</p>
-          <div class="modal-metrics">
-            <div class="metric">
-              <span>昨日步数</span>
-              <strong>${state.yesterdaySteps}</strong>
+      if (state.modal === "watered") {
+        const stage = stageFromGrowth();
+        modalLayer.innerHTML = `
+          <article class="modal-card">
+            <h2>浇水成功</h2>
+            <p>${currentFlowerName()}现在是「${stage.label}」。${state.currentFlower.growth === 3 ? "再浇 1 次就会绽放。" : "继续走路可以获得下一次浇水机会。"}</p>
+            <button class="green-button" id="closeModalButton" type="button">继续</button>
+          </article>
+        `;
+        return;
+      }
+
+      if (state.modal === "vip") {
+        modalLayer.innerHTML = `
+          <article class="modal-card">
+            <h2>解锁 VIP</h2>
+            <p>${state.modalPayload.reason || "让花园成长更快，也解锁更多收藏。"}</p>
+            <div class="benefit-list">
+              <span>每日采纳上限：2000 步 -> 3000 步</span>
+              <span>每天最多 2 次浇水 -> 3 次浇水</span>
+              <span>解锁每个花园的 2 朵 VIP 限定花</span>
+              <span>解锁特殊花园</span>
             </div>
-            <div class="metric">
-              <span>浇花机会</span>
-              <strong>${state.yesterdayClaimed ? 0 : waterings}</strong>
+            <div class="button-row">
+              <button class="secondary-button" id="restorePurchaseButton" type="button">恢复购买</button>
+              <button class="green-button" id="confirmVipButton" type="button">买断 ¥28.00</button>
             </div>
-          </div>
-          <div class="button-row">
-            <button class="ghost-button" id="closeModalButton" type="button">关闭</button>
-            <button class="primary-button" id="claimYesterdayButton" type="button" ${state.yesterdayClaimed || waterings <= 0 ? "disabled" : ""}>
-              收下机会
-            </button>
-          </div>
-        </article>
-      `;
+            <button class="ghost-button" id="closeModalButton" type="button" style="margin-top: 10px;">暂时不用</button>
+          </article>
+        `;
+        return;
+      }
+
+      if (state.modal === "healthDenied") {
+        modalLayer.innerHTML = `
+          <article class="modal-card">
+            <h2>还没有步数权限</h2>
+            <p>你仍然可以浏览图鉴，但今日步数不会变成浇水机会。之后可以回到授权页重新连接 Apple Health。</p>
+            <div class="button-row">
+              <button class="secondary-button" id="closeModalButton" type="button">稍后</button>
+              <button class="green-button" data-screen="health" type="button">去授权</button>
+            </div>
+          </article>
+        `;
+        return;
+      }
+
+      if (state.modal === "widget") {
+        modalLayer.innerHTML = `
+          <article class="modal-card">
+            <h2>小组件预览</h2>
+            <p>桌面小组件会显示今日步数、当前花状态和剩余浇水机会。</p>
+            <div class="soft-card" style="margin: 12px 0;">
+              <div class="flower-row" style="border:0;padding:0;">
+                <span class="flower-thumb"></span>
+                <span class="flower-title"><strong>${state.todaySteps} 步</strong><span>${currentFlowerName()} · ${stageFromGrowth().label} · 剩 ${todayAvailableWaterings()} 次</span></span>
+              </div>
+            </div>
+            <button class="green-button" id="closeModalButton" type="button">知道了</button>
+          </article>
+        `;
+        return;
+      }
+
+      if (state.modal === "syncDelay") {
+        modalLayer.innerHTML = `
+          <article class="modal-card">
+            <h2>步数同步中</h2>
+            <p>Apple Health 的步数可能会有轻微延迟。同步完成后，首页会自动按 ${STEPS_PER_WATERING} 步换算浇水机会。</p>
+            <button class="green-button" id="closeModalButton" type="button">知道了</button>
+          </article>
+        `;
+      }
     }
 
     function renderControls() {
-      todayStepsRange.value = state.todaySteps;
-      todayStepsLabel.textContent = state.todaySteps;
-      planLabel.textContent = state.plan === "premium" ? "付费" : "免费";
-      freePlanButton.classList.toggle("is-active", state.plan === "free");
-      premiumPlanButton.classList.toggle("is-active", state.plan === "premium");
-
+      if (!stateList) return;
       const garden = currentGarden();
-      const currentStage = stageFromGrowth(state.currentFlower.growth).label;
       stateList.innerHTML = `
         <div><span>Health 授权</span><strong>${state.authorized ? "已授权" : "未授权"}</strong></div>
+        <div><span>用户版本</span><strong>${state.plan === "premium" ? "VIP" : "免费"}</strong></div>
         <div><span>每日采纳上限</span><strong>${capForPlan()} 步</strong></div>
-        <div><span>今日机会</span><strong>${wateringsFromSteps(state.todaySteps)} 次</strong></div>
-        <div><span>可浇花</span><strong>${todayAvailableWaterings()} 次</strong></div>
+        <div><span>今日机会</span><strong>${wateringsFromSteps()} 次</strong></div>
+        <div><span>剩余机会</span><strong>${todayAvailableWaterings()} 次</strong></div>
         <div><span>当前花</span><strong>${currentFlowerName()}</strong></div>
-        <div><span>成长阶段</span><strong>${currentStage}</strong></div>
+        <div><span>成长阶段</span><strong>${stageFromGrowth().label}</strong></div>
         <div><span>当前花园</span><strong>${garden.name}</strong></div>
         <div><span>花园进度</span><strong>${completedCount(garden.id, true)} / 10</strong></div>
       `;
+      document.getElementById("freePlanButton")?.classList.toggle("is-active", state.plan === "free");
+      document.getElementById("premiumPlanButton")?.classList.toggle("is-active", state.plan === "premium");
+      document.getElementById("authToggleButton")?.classList.toggle("is-active", state.authorized);
     }
 
     function render() {
-      if (!state.authorized) {
-        renderAuth();
-      } else if (state.tab === "garden") {
-        renderGarden();
-      } else if (state.tab === "atlas") {
-        renderAtlas();
-      } else if (state.tab === "pay") {
-        renderPay();
-      } else {
-        renderToday();
+      switch (state.screen) {
+        case "onboarding": renderOnboarding(); break;
+        case "health": renderHealth(); break;
+        case "atlas": renderAtlas(); break;
+        case "garden": renderGarden(); break;
+        case "flower": renderFlowerDetail(); break;
+        case "nextFlower": renderNextFlower(); break;
+        case "bloom": renderBloom(); break;
+        case "gardenComplete": renderGardenComplete(); break;
+        case "us": renderUs(); break;
+        default: renderToday();
       }
-
       renderModal();
       renderControls();
     }
 
-    function claimYesterday() {
-      if (state.yesterdayClaimed) return;
-      const waterings = wateringsFromSteps(state.yesterdaySteps);
-      if (waterings <= 0) return;
-      state.bonusWaterings += waterings;
-      state.yesterdayClaimed = true;
-      state.modal = null;
-      showToast(`补领 ${waterings} 次浇花`);
+    function setScreen(screen) {
+      state.screen = screen;
+      if (screen === "atlas") state.atlasGardenIndex = state.currentGardenIndex;
+      saveAndRender();
+    }
+
+    function setTab(screen) {
+      if (screen === "today") state.screen = "today";
+      if (screen === "atlas") {
+        state.screen = "atlas";
+        state.atlasGardenIndex = state.currentGardenIndex;
+      }
+      if (screen === "us") state.screen = "us";
       saveAndRender();
     }
 
     function waterFlower() {
-      if (todayAvailableWaterings() <= 0 || state.currentFlower.growth >= WATERINGS_PER_FLOWER) return;
-      if (state.bonusWaterings > 0) {
-        state.bonusWaterings -= 1;
-      } else {
-        state.usedWateringsToday += 1;
+      if (!state.authorized) {
+        state.screen = "health";
+        saveAndRender();
+        return;
       }
+      if (todayAvailableWaterings() <= 0 || state.currentFlower.growth >= WATERINGS_PER_FLOWER) return;
+      state.usedWateringsToday += 1;
       state.currentFlower.growth += 1;
       if (state.currentFlower.growth >= WATERINGS_PER_FLOWER) {
+        state.screen = "bloom";
         showToast(`${currentFlowerName()}绽放了`);
+      } else {
+        state.modal = "watered";
       }
       saveAndRender();
     }
 
-    function plantFlower() {
+    function collectCurrentFlower(nextScreen = "garden") {
       if (state.currentFlower.growth < WATERINGS_PER_FLOWER) return;
       const gardenId = state.currentFlower.gardenId;
       const flowerIndex = state.currentFlower.flowerIndex;
@@ -2489,54 +2701,95 @@
       if (!done.includes(flowerIndex)) {
         state.progress[gardenId] = [...done, flowerIndex].sort((a, b) => a - b);
       }
-
+      const gardenIndex = gardens.findIndex((item) => item.id === gardenId);
+      state.currentGardenIndex = Math.max(0, gardenIndex);
       const freeDone = completedCount(gardenId, true);
-      if (freeDone >= 10) {
-        showToast(`${flowerName(gardenId, flowerIndex)}已种入花园`);
-      } else {
-        showToast(`花园进度 ${freeDone + 1} / 10`);
+      if (freeDone >= 10 && nextScreen !== "garden") {
+        state.screen = "gardenComplete";
+        saveAndRender();
+        return;
       }
-
       const nextIndex = nextFlowerForGarden(gardenId);
-      state.currentFlower = {
-        gardenId,
-        flowerIndex: nextIndex ?? flowerIndex,
-        growth: 0
-      };
-      state.tab = "garden";
+      state.currentFlower = { gardenId, flowerIndex: nextIndex ?? flowerIndex, growth: 0 };
+      state.screen = nextScreen;
+      saveAndRender();
+    }
+
+    function pickFlower(index) {
+      const garden = currentGarden();
+      if (index >= 10 && state.plan !== "premium") {
+        showModal("vip", { reason: "这是一朵 VIP 限定花。" });
+        return;
+      }
+      if ((state.progress[garden.id] || []).includes(index)) return;
+      state.currentFlower = { gardenId: garden.id, flowerIndex: index, growth: 0 };
+      state.screen = "today";
+      showToast(`已选择${flowerName(garden.id, index)}`);
+      saveAndRender();
+    }
+
+    function openFlowerDetail(index) {
+      const garden = currentGarden();
+      state.selectedGardenIndex = state.currentGardenIndex;
+      state.selectedFlowerIndex = index;
+      state.screen = "flower";
+      saveAndRender();
+    }
+
+    function enterAtlasGarden(index) {
+      const garden = gardens[index];
+      if (!garden) return;
+      if (!isGardenUnlocked(index)) {
+        if (garden.isSpecial && state.plan !== "premium") {
+          showModal("vip", { reason: "解锁 VIP 后可进入特殊花园。" });
+        } else {
+          showToast("先完成上一片花园");
+        }
+        return;
+      }
+      state.currentGardenIndex = index;
+      state.atlasGardenIndex = index;
+      normalizeCurrentFlower();
+      state.screen = "garden";
       saveAndRender();
     }
 
     function goNextGarden() {
       const nextIndex = state.currentGardenIndex + 1;
-      if (!gardens[nextIndex] || !isGardenUnlocked(nextIndex)) return;
+      if (!gardens[nextIndex]) {
+        state.screen = "atlas";
+        saveAndRender();
+        return;
+      }
+      if (!isGardenUnlocked(nextIndex)) {
+        showToast("下一片花园还没有开放");
+        return;
+      }
       state.currentGardenIndex = nextIndex;
       state.atlasGardenIndex = nextIndex;
-      const garden = currentGarden();
-      const nextIndexInGarden = nextFlowerForGarden(garden.id) ?? 0;
-      state.currentFlower = {
-        gardenId: garden.id,
-        flowerIndex: nextIndexInGarden,
-        growth: 0
-      };
-      state.tab = "garden";
-      showToast(`进入${garden.name}`);
+      const nextGarden = currentGarden();
+      state.currentFlower = { gardenId: nextGarden.id, flowerIndex: nextFlowerForGarden(nextGarden.id) ?? 0, growth: 0 };
+      state.screen = "garden";
+      showToast(`进入${nextGarden.name}`);
       saveAndRender();
     }
 
-    let atlasSwipeStart = null;
+    function moveAtlas(delta) {
+      state.atlasGardenIndex = (state.atlasGardenIndex + delta + gardens.length) % gardens.length;
+      saveAndRender();
+    }
 
     document.addEventListener("pointerdown", (event) => {
-      if (state.tab !== "atlas" || !event.target.closest(".atlas-carousel")) return;
+      if (state.screen !== "atlas" || !event.target.closest(".atlas-carousel")) return;
       atlasSwipeStart = { x: event.clientX, y: event.clientY };
     });
 
     document.addEventListener("pointerup", (event) => {
-      if (state.tab !== "atlas" || !atlasSwipeStart) return;
+      if (state.screen !== "atlas" || !atlasSwipeStart) return;
       const deltaX = event.clientX - atlasSwipeStart.x;
       const deltaY = event.clientY - atlasSwipeStart.y;
       atlasSwipeStart = null;
-      if (Math.abs(deltaX) < 48 || Math.abs(deltaY) > 80) return;
+      if (Math.abs(deltaX) < 46 || Math.abs(deltaY) > 80) return;
       moveAtlas(deltaX < 0 ? 1 : -1);
     });
 
@@ -2544,71 +2797,97 @@
       const target = event.target.closest("button");
       if (!target) return;
 
-      if (target.dataset.tab) {
-        setTab(target.dataset.tab);
-        return;
-      }
-
       if (target.dataset.toast) {
         showToast(target.dataset.toast);
         return;
       }
 
+      if (target.dataset.screen) {
+        setScreen(target.dataset.screen);
+        return;
+      }
+
+      if (target.dataset.tab) {
+        setTab(target.dataset.tab);
+        return;
+      }
+
+      if (target.dataset.steps) {
+        state.todaySteps = Number(target.dataset.steps);
+        state.usedWateringsToday = Math.min(state.usedWateringsToday, wateringsFromSteps());
+        saveAndRender();
+        return;
+      }
+
+      if (target.dataset.stageInfo) {
+        showModal("stageInfo", { stageId: target.dataset.stageInfo });
+        return;
+      }
+
+      if (target.dataset.vipReason) {
+        showModal("vip", { reason: target.dataset.vipReason });
+        return;
+      }
+
+      if (target.dataset.pickFlower) {
+        pickFlower(Number(target.dataset.pickFlower));
+        return;
+      }
+
+      if (target.id === "startHealthButton") {
+        state.hasSeenIntro = true;
+        state.screen = "health";
+        saveAndRender();
+        return;
+      }
+
+      if (target.id === "previewButton") {
+        state.hasSeenIntro = true;
+        state.screen = "today";
+        saveAndRender();
+        return;
+      }
+
       if (target.id === "authButton") {
         state.authorized = true;
-        state.modal = null;
+        state.hasSeenIntro = true;
+        state.screen = "today";
         showToast("Apple Health 已连接");
         saveAndRender();
         return;
       }
 
       if (target.id === "authDenyButton") {
-        showToast("可以稍后在设置中连接");
+        state.authorized = false;
+        state.hasSeenIntro = true;
+        state.screen = "today";
+        state.modal = "healthDenied";
+        saveAndRender();
         return;
       }
 
       if (target.id === "canActionButton") {
-        if (state.currentFlower.growth >= WATERINGS_PER_FLOWER) {
-          showToast("先把花种进花园");
+        if (!state.authorized) {
+          state.screen = "health";
+          saveAndRender();
+        } else if (state.currentFlower.growth >= WATERINGS_PER_FLOWER) {
+          state.screen = "bloom";
+          saveAndRender();
         } else if (todayAvailableWaterings() > 0) {
           waterFlower();
+        } else if (state.plan === "free" && state.todaySteps >= FREE_DAILY_CAP) {
+          showModal("vip", { reason: "今日免费浇水机会已用完，VIP 每天可采纳 3000 步。" });
         } else {
-          showToast(state.todaySteps >= capForPlan() ? "今日浇花机会已用完" : `再走 ${stepsUntilNextWatering()} 步`);
+          showToast(`还差 ${stepsUntilNextWatering()} 步`);
         }
         return;
       }
 
-      if (target.dataset.stageInfo) {
-        state.stageInfoId = target.dataset.stageInfo;
-        state.modal = "stageInfo";
+      if (target.id === "currentFlowerButton") {
+        state.selectedGardenIndex = gardens.findIndex((item) => item.id === state.currentFlower.gardenId);
+        state.selectedFlowerIndex = state.currentFlower.flowerIndex;
+        state.screen = "flower";
         saveAndRender();
-        return;
-      }
-
-      if (target.id === "waterButton") {
-        waterFlower();
-        return;
-      }
-
-      if (target.id === "plantButton" || target.id === "scenePlantButton") {
-        plantFlower();
-        return;
-      }
-
-      if (target.id === "nextGardenButton") {
-        goNextGarden();
-        return;
-      }
-
-      if (target.id === "gardenBackButton") {
-        state.atlasGardenIndex = state.currentGardenIndex;
-        state.tab = "atlas";
-        saveAndRender();
-        return;
-      }
-
-      if (target.dataset.atlasDelta) {
-        moveAtlas(Number(target.dataset.atlasDelta));
         return;
       }
 
@@ -2617,71 +2896,104 @@
         return;
       }
 
-      if (target.id === "upgradeButton" || target.id === "premiumPlanButton") {
-        state.plan = "premium";
-        showToast("付费版已开启");
+      if (target.dataset.atlasDelta) {
+        moveAtlas(Number(target.dataset.atlasDelta));
+        return;
+      }
+
+      if (target.id === "backToAtlasButton") {
+        state.screen = "atlas";
+        state.atlasGardenIndex = state.currentGardenIndex;
         saveAndRender();
         return;
       }
 
-      if (target.id === "downgradeButton" || target.id === "freePlanButton") {
-        state.plan = "free";
-        showToast("已切回免费版");
+      if (target.id === "backToGardenButton" || target.id === "backToGardenButton2") {
+        state.screen = "garden";
         saveAndRender();
-        return;
-      }
-
-      if (target.id === "closeModalButton") {
-        state.modal = null;
-        saveAndRender();
-        return;
-      }
-
-      if (target.id === "claimYesterdayButton") {
-        claimYesterday();
-        return;
-      }
-
-      if (target.id === "showSettlementButton") {
-        state.modal = "settlement";
-        saveAndRender();
-        return;
-      }
-
-      if (target.id === "resetButton") {
-        localStorage.removeItem(STORAGE_KEY);
-        state = structuredClone(defaultState);
-        showToast("原型已重置");
-        render();
-        return;
-      }
-
-      if (target.dataset.steps) {
-        state.todaySteps = Number(target.dataset.steps);
-        state.usedWateringsToday = Math.min(state.usedWateringsToday, wateringsFromSteps(state.todaySteps));
-        saveAndRender();
-        return;
-      }
-
-      if (target.dataset.gardenIndex) {
-        enterAtlasGarden(Number(target.dataset.gardenIndex));
         return;
       }
 
       if (target.dataset.slot) {
         const index = Number(target.dataset.slot);
         if (index >= 10 && state.plan !== "premium") {
-          state.tab = "pay";
-          showToast("这是付费限定花");
-          saveAndRender();
+          showModal("vip", { reason: "这是一朵 VIP 限定花。" });
+          return;
         }
+        openFlowerDetail(index);
+        return;
       }
-    });
 
-    todayStepsRange.addEventListener("input", (event) => {
-      state.todaySteps = Number(event.target.value);
-      state.usedWateringsToday = Math.min(state.usedWateringsToday, wateringsFromSteps(state.todaySteps));
-      saveAndRender();
+      if (target.id === "bloomNextButton") {
+        collectCurrentFlower("nextFlower");
+        return;
+      }
+
+      if (target.id === "bloomAtlasButton") {
+        collectCurrentFlower("garden");
+        return;
+      }
+
+      if (target.id === "nextGardenButton") {
+        goNextGarden();
+        return;
+      }
+
+      if (target.id === "vipHeaderButton" || target.id === "upgradeButton") {
+        showModal("vip", { reason: "升级后每天最多 3 次浇水，并解锁限定花和特殊花园。" });
+        return;
+      }
+
+      if (target.id === "confirmVipButton" || target.id === "premiumPlanButton") {
+        state.plan = "premium";
+        state.modal = null;
+        showToast("VIP 已开启");
+        saveAndRender();
+        return;
+      }
+
+      if (target.id === "freePlanButton") {
+        state.plan = "free";
+        state.usedWateringsToday = Math.min(state.usedWateringsToday, wateringsFromSteps());
+        showToast("已切回免费版");
+        saveAndRender();
+        return;
+      }
+
+      if (target.id === "authToggleButton") {
+        state.authorized = !state.authorized;
+        showToast(state.authorized ? "已模拟授权" : "已取消授权");
+        saveAndRender();
+        return;
+      }
+
+      if (target.id === "restorePurchaseButton") {
+        showToast("恢复购买入口占位");
+        return;
+      }
+
+      if (target.id === "widgetPreviewButton") {
+        showModal("widget");
+        return;
+      }
+
+      if (target.id === "syncDelayButton") {
+        showModal("syncDelay");
+        return;
+      }
+
+      if (target.id === "closeModalButton") {
+        closeModal();
+        return;
+      }
+
+      if (target.id === "resetButton") {
+        localStorage.removeItem(STORAGE_KEY);
+        localStorage.removeItem("stepGardenWireframeState");
+        state = structuredClone(defaultState);
+        showToast("原型已重置");
+        render();
+      }
     });
 
     render();
