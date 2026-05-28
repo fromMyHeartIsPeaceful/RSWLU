@@ -3,6 +3,7 @@ import UIKit
 
 private enum GardenLayout {
     static let actionCardOuterHeight: CGFloat = 248
+    static let atlasArtworkHeight: CGFloat = 312
 }
 
 struct RootView: View {
@@ -360,45 +361,53 @@ struct AtlasView: View {
                         store.setMainTab(.us)
                     }
 
-                    HStack(spacing: 10) {
-                        RoundIconButton(systemImage: "chevron.left") {
-                            store.moveAtlas(by: -1)
-                        }
-                        GardenIslandArtworkCard(garden: store.atlasGarden, locked: !store.isGardenUnlocked(store.progress.atlasGardenIndex))
-                        RoundIconButton(systemImage: "chevron.right") {
-                            store.moveAtlas(by: 1)
-                        }
-                    }
-                    .padding(.horizontal, 18)
-                    .padding(.top, 18)
+                    GardenIslandArtworkCard(garden: store.atlasGarden, locked: !store.isGardenUnlocked(store.progress.atlasGardenIndex))
+                        .frame(height: GardenLayout.atlasArtworkHeight)
+                        .padding(.top, 14)
 
                     Spacer(minLength: 0)
 
-                    WhiteCard {
-                        VStack(alignment: .leading, spacing: 14) {
-                            HStack {
-                                VStack(alignment: .leading, spacing: 6) {
-                                    Text(store.atlasGarden.name)
-                                        .font(.title.weight(.heavy))
-                                        .foregroundStyle(GardenTheme.ink)
-                                    Text(statusLine)
-                                        .font(.headline.weight(.semibold))
-                                        .foregroundStyle(GardenTheme.muted)
+                    ZStack {
+                        WhiteCard {
+                            VStack(alignment: .leading, spacing: 14) {
+                                HStack {
+                                    VStack(alignment: .leading, spacing: 6) {
+                                        Text(store.atlasGarden.name)
+                                            .font(.title.weight(.heavy))
+                                            .foregroundStyle(GardenTheme.ink)
+                                        Text(statusLine)
+                                            .font(.headline.weight(.semibold))
+                                            .foregroundStyle(GardenTheme.muted)
+                                    }
+                                    Spacer()
                                 }
-                                Spacer()
+                                Text(atlasActionHint)
+                                    .font(.subheadline.weight(.semibold))
+                                    .foregroundStyle(GardenTheme.muted)
+                                    .lineLimit(1)
+                                    .minimumScaleFactor(0.80)
+                                    .frame(maxWidth: .infinity, minHeight: 22, alignment: .leading)
+                                Spacer(minLength: 8)
+                                PrimaryButton(title: store.isGardenUnlocked(store.progress.atlasGardenIndex) ? "查看花园" : "待解锁", isDisabled: !store.isGardenUnlocked(store.progress.atlasGardenIndex)) {
+                                    store.enterAtlasGarden()
+                                }
                             }
-                            Text(atlasActionHint)
-                                .font(.subheadline.weight(.semibold))
-                                .foregroundStyle(GardenTheme.muted)
-                                .lineLimit(1)
-                                .minimumScaleFactor(0.80)
-                                .frame(maxWidth: .infinity, minHeight: 22, alignment: .leading)
-                            Spacer(minLength: 8)
-                            PrimaryButton(title: store.isGardenUnlocked(store.progress.atlasGardenIndex) ? "查看花园" : "待解锁", isDisabled: !store.isGardenUnlocked(store.progress.atlasGardenIndex)) {
-                                store.enterAtlasGarden()
-                            }
+                            .frame(maxWidth: .infinity, minHeight: 212, alignment: .topLeading)
                         }
-                        .frame(maxWidth: .infinity, minHeight: 212, alignment: .topLeading)
+
+                        HStack {
+                            AtlasArrowButton(systemImage: "chevron.left") {
+                                store.moveAtlas(by: -1)
+                            }
+                            .offset(x: -18)
+
+                            Spacer()
+
+                            AtlasArrowButton(systemImage: "chevron.right") {
+                                store.moveAtlas(by: 1)
+                            }
+                            .offset(x: 18)
+                        }
                     }
                     .frame(height: GardenLayout.actionCardOuterHeight)
                     .padding(.horizontal, 20)
@@ -829,6 +838,33 @@ private struct RoundIconButton: View {
     }
 }
 
+private struct AtlasArrowButton: View {
+    let systemImage: String
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: systemImage)
+                .font(.subheadline.weight(.bold))
+                .foregroundStyle(GardenTheme.leafDark.opacity(0.78))
+                .frame(width: 36, height: 36)
+                .background(.ultraThinMaterial, in: Circle())
+                .overlay {
+                    Circle()
+                        .stroke(GardenTheme.cardStroke.opacity(0.16), lineWidth: 0.8)
+                }
+                .overlay {
+                    Circle()
+                        .inset(by: 0.7)
+                        .stroke(.white.opacity(0.22), lineWidth: 0.6)
+                }
+                .shadow(color: GardenTheme.cardShadow.opacity(0.07), radius: 8, x: 0, y: 4)
+        }
+        .opacity(0.78)
+        .buttonStyle(GardenPressStyle(scale: 0.94))
+    }
+}
+
 private struct GardenIslandArtworkCard: View {
     let garden: Garden
     let locked: Bool
@@ -838,8 +874,6 @@ private struct GardenIslandArtworkCard: View {
             Image(garden.artworkAssetName)
                 .resizable()
                 .scaledToFit()
-                .padding(.horizontal, 8)
-                .padding(.vertical, 10)
                 .saturation(locked ? 0.18 : 1)
                 .blur(radius: locked ? 2.5 : 0)
 
@@ -852,26 +886,6 @@ private struct GardenIslandArtworkCard: View {
             }
         }
         .frame(maxWidth: .infinity)
-        .frame(height: 260)
-        .background(
-            LinearGradient(
-                colors: [GardenTheme.cardWarm, GardenTheme.cardWarmLow],
-                startPoint: .top,
-                endPoint: .bottom
-            ),
-            in: RoundedRectangle(cornerRadius: 34, style: .continuous)
-        )
-        .overlay {
-            RoundedRectangle(cornerRadius: 34, style: .continuous)
-                .stroke(GardenTheme.cardStroke.opacity(0.24), lineWidth: 1)
-        }
-        .overlay {
-            RoundedRectangle(cornerRadius: 34, style: .continuous)
-                .inset(by: 0.8)
-                .stroke(.white.opacity(0.30), lineWidth: 0.7)
-        }
-        .clipShape(RoundedRectangle(cornerRadius: 34, style: .continuous))
-        .shadow(color: GardenTheme.cardShadow.opacity(0.10), radius: 18, x: 0, y: 9)
         .accessibilityLabel(garden.name)
     }
 }
