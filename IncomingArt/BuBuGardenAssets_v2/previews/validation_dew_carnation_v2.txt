@@ -1,0 +1,5 @@
+IncomingArt/BuBuGardenAssets_v2/flowers/dew/dew_carnation_seed.png: 1024x1024 RGBA bbox=(401, 297, 623, 727)
+IncomingArt/BuBuGardenAssets_v2/flowers/dew/dew_carnation_sprout.png: 1024x1024 RGBA bbox=(207, 187, 817, 837)
+IncomingArt/BuBuGardenAssets_v2/flowers/dew/dew_carnation_bud.png: 1024x1024 RGBA bbox=(318, 92, 706, 932)
+IncomingArt/BuBuGardenAssets_v2/flowers/dew/dew_carnation_bloom.png: 1024x1024 RGBA bbox=(310, 62, 713, 962)
+IncomingArt/BuBuGardenAssets_v2/previews/preview_dew_carnation_4stages_v2.png: 2400x900 RGB

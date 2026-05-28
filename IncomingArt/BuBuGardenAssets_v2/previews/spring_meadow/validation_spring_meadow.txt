@@ -1,0 +1,46 @@
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_snowdrop_seed.png: 1024x1024 RGBA bbox=(416, 307, 607, 717)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_snowdrop_sprout.png: 1024x1024 RGBA bbox=(275, 192, 748, 832)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_snowdrop_bud.png: 1024x1024 RGBA bbox=(292, 112, 731, 912)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_snowdrop_bloom.png: 1024x1024 RGBA bbox=(310, 87, 713, 937)
+IncomingArt/BuBuGardenAssets_v2/previews/spring_meadow/preview_spring_meadow_snowdrop_4stages.png: 2400x900 RGB
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_crocus_seed.png: 1024x1024 RGBA bbox=(389, 307, 634, 717)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_crocus_sprout.png: 1024x1024 RGBA bbox=(339, 192, 685, 832)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_crocus_bud.png: 1024x1024 RGBA bbox=(206, 112, 818, 912)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_crocus_bloom.png: 1024x1024 RGBA bbox=(231, 87, 792, 937)
+IncomingArt/BuBuGardenAssets_v2/previews/spring_meadow/preview_spring_meadow_crocus_4stages.png: 2400x900 RGB
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_primrose_seed.png: 1024x1024 RGBA bbox=(377, 307, 647, 717)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_primrose_sprout.png: 1024x1024 RGBA bbox=(162, 272, 862, 751)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_primrose_bud.png: 1024x1024 RGBA bbox=(132, 201, 892, 823)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_primrose_bloom.png: 1024x1024 RGBA bbox=(112, 164, 912, 859)
+IncomingArt/BuBuGardenAssets_v2/previews/spring_meadow/preview_spring_meadow_primrose_4stages.png: 2400x900 RGB
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_forget_me_not_seed.png: 1024x1024 RGBA bbox=(425, 307, 598, 717)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_forget_me_not_sprout.png: 1024x1024 RGBA bbox=(192, 192, 832, 832)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_forget_me_not_bud.png: 1024x1024 RGBA bbox=(286, 112, 737, 912)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_forget_me_not_bloom.png: 1024x1024 RGBA bbox=(190, 87, 834, 937)
+IncomingArt/BuBuGardenAssets_v2/previews/spring_meadow/preview_spring_meadow_forget_me_not_4stages.png: 2400x900 RGB
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_daisy_seed.png: 1024x1024 RGBA bbox=(441, 307, 583, 717)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_daisy_sprout.png: 1024x1024 RGBA bbox=(162, 291, 862, 732)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_daisy_bud.png: 1024x1024 RGBA bbox=(186, 112, 838, 912)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_daisy_bloom.png: 1024x1024 RGBA bbox=(161, 87, 862, 937)
+IncomingArt/BuBuGardenAssets_v2/previews/spring_meadow/preview_spring_meadow_daisy_4stages.png: 2400x900 RGB
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_lily_of_the_valley_seed.png: 1024x1024 RGBA bbox=(421, 307, 603, 716)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_lily_of_the_valley_sprout.png: 1024x1024 RGBA bbox=(274, 192, 749, 832)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_lily_of_the_valley_bud.png: 1024x1024 RGBA bbox=(272, 112, 752, 912)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_lily_of_the_valley_bloom.png: 1024x1024 RGBA bbox=(194, 87, 829, 937)
+IncomingArt/BuBuGardenAssets_v2/previews/spring_meadow/preview_spring_meadow_lily_of_the_valley_4stages.png: 2400x900 RGB
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_cornflower_seed.png: 1024x1024 RGBA bbox=(461, 307, 563, 717)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_cornflower_sprout.png: 1024x1024 RGBA bbox=(263, 192, 760, 832)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_cornflower_bud.png: 1024x1024 RGBA bbox=(298, 112, 726, 912)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_cornflower_bloom.png: 1024x1024 RGBA bbox=(308, 87, 716, 937)
+IncomingArt/BuBuGardenAssets_v2/previews/spring_meadow/preview_spring_meadow_cornflower_4stages.png: 2400x900 RGB
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_pansy_seed.png: 1024x1024 RGBA bbox=(402, 307, 622, 717)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_pansy_sprout.png: 1024x1024 RGBA bbox=(162, 294, 862, 729)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_pansy_bud.png: 1024x1024 RGBA bbox=(132, 127, 892, 896)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_pansy_bloom.png: 1024x1024 RGBA bbox=(144, 87, 879, 937)
+IncomingArt/BuBuGardenAssets_v2/previews/spring_meadow/preview_spring_meadow_pansy_4stages.png: 2400x900 RGB
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_hyacinth_seed.png: 1024x1024 RGBA bbox=(364, 307, 660, 717)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_hyacinth_sprout.png: 1024x1024 RGBA bbox=(320, 192, 704, 832)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_hyacinth_bud.png: 1024x1024 RGBA bbox=(284, 112, 739, 912)
+IncomingArt/BuBuGardenAssets_v2/flowers/spring_meadow/spring_meadow_hyacinth_bloom.png: 1024x1024 RGBA bbox=(262, 87, 761, 937)
+IncomingArt/BuBuGardenAssets_v2/previews/spring_meadow/preview_spring_meadow_hyacinth_4stages.png: 2400x900 RGB
+IncomingArt/BuBuGardenAssets_v2/previews/spring_meadow/preview_spring_meadow_bloom_overview.png: 2400x1500 RGB

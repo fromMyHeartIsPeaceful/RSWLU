@@ -1,0 +1,13 @@
+{
+  "images" : [
+    {
+      "filename" : "hifi_stage_bloom.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
