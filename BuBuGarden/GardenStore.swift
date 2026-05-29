@@ -10,6 +10,7 @@ final class GardenStore: ObservableObject {
     @Published var statusMessage: String?
     @Published var selectedPreviewStage: FlowerStage?
     @Published private(set) var recentBloom: BloomSnapshot?
+    @Published private(set) var hasUnseenAtlasBloom = false
 
     let gardens = Garden.catalog
 
@@ -150,6 +151,7 @@ final class GardenStore: ObservableObject {
             screen = .today
         case .atlas:
             recentBloom = nil
+            hasUnseenAtlasBloom = false
             progress.atlasGardenIndex = progress.currentGardenIndex
             screen = .atlas
         case .us:
@@ -165,13 +167,13 @@ final class GardenStore: ObservableObject {
             return
         }
 
-        guard availableWaterings > 0 else {
-            statusMessage = todaySteps >= dailyCap ? "今日浇水机会已用完" : "还差 \(stepsUntilNextWatering) 步"
+        guard progress.currentFlower.growth < Constants.wateringsPerFlower else {
+            screen = .today
             return
         }
 
-        guard progress.currentFlower.growth < Constants.wateringsPerFlower else {
-            screen = .bloom
+        guard availableWaterings > 0 else {
+            statusMessage = todaySteps >= dailyCap ? "今日浇水机会已用完" : "还差 \(stepsUntilNextWatering) 步"
             return
         }
 
@@ -179,9 +181,8 @@ final class GardenStore: ObservableObject {
         progress.currentFlower.growth += 1
 
         if progress.currentFlower.growth >= Constants.wateringsPerFlower {
-            let bloom = collectBloomingFlower()
-            statusMessage = "\(bloom.flowerName)绽放了"
-            screen = .bloom
+            _ = collectBloomingFlower()
+            screen = .today
         } else {
             statusMessage = "浇水成功，\(currentFlowerName)现在是「\(currentStage.title)」"
         }
@@ -235,12 +236,10 @@ final class GardenStore: ObservableObject {
         save()
     }
 
-    func leaveBloom(to screen: GardenScreen) {
+    func dismissRecentBloom() {
         recentBloom = nil
-        if screen == .atlas {
-            progress.atlasGardenIndex = progress.currentGardenIndex
-        }
-        self.screen = screen
+        selectedPreviewStage = nil
+        screen = .today
         save()
     }
 
@@ -300,6 +299,7 @@ final class GardenStore: ObservableObject {
         if !collected.contains(flowerIndex) {
             collected.append(flowerIndex)
             progress.collectedFlowerIndexes[gardenId] = collected.sorted()
+            hasUnseenAtlasBloom = true
         }
 
         progress.currentGardenIndex = gardens.firstIndex { $0.id == gardenId } ?? progress.currentGardenIndex

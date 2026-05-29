@@ -61,14 +61,24 @@ struct Garden: Identifiable, Codable, Equatable {
     let name: String
     let isSpecial: Bool
     let artworkAssetName: String
+    let atlasSceneAssetName: String
     let flowers: [String]
     let flowerSlugs: [String]
 
-    init(id: String, name: String, isSpecial: Bool, artworkAssetName: String, flowers: [String], flowerSlugs: [String]? = nil) {
+    init(
+        id: String,
+        name: String,
+        isSpecial: Bool,
+        artworkAssetName: String,
+        atlasSceneAssetName: String,
+        flowers: [String],
+        flowerSlugs: [String]? = nil
+    ) {
         self.id = id
         self.name = name
         self.isSpecial = isSpecial
         self.artworkAssetName = artworkAssetName
+        self.atlasSceneAssetName = atlasSceneAssetName
         self.flowers = flowers
         self.flowerSlugs = flowerSlugs ?? flowers.map { _ in "" }
     }
@@ -140,6 +150,7 @@ extension Garden {
             name: "北境春原",
             isSpecial: false,
             artworkAssetName: "GardenSpringMeadow",
+            atlasSceneAssetName: "GardenSpringMeadowAtlasScene",
             flowers: ["雪滴花", "番红花", "报春花", "勿忘我", "雏菊", "铃兰", "矢车菊", "三色堇", "风信子", "蓝罂粟", "黑郁金香", "羽冠银莲花"],
             flowerSlugs: ["snowdrop", "crocus", "primrose", "forget_me_not", "daisy", "lily_of_the_valley", "cornflower", "pansy", "hyacinth", "blue_poppy", "black_tulip", "crested_anemone"]
         ),
@@ -148,6 +159,7 @@ extension Garden {
             name: "江南雨庭",
             isSpecial: false,
             artworkAssetName: "GardenMistJiangnan",
+            atlasSceneAssetName: "GardenMistJiangnanAtlasScene",
             flowers: ["迎春花", "杜鹃", "紫藤", "鸢尾", "荷花", "睡莲", "栀子", "绣球", "木槿", "玉兰", "牡丹", "幽兰"]
         ),
         Garden(
@@ -155,6 +167,7 @@ extension Garden {
             name: "地中海夏园",
             isSpecial: false,
             artworkAssetName: "GardenMediterraneanSun",
+            atlasSceneAssetName: "GardenMediterraneanSunAtlasScene",
             flowers: ["薰衣草", "迷迭香花", "百里香花", "金盏菊", "罂粟", "天竺葵", "夹竹桃", "矮牵牛", "向日葵", "帝王贝母", "朱顶红", "火焰百合"]
         )
     ]

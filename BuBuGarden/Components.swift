@@ -116,14 +116,34 @@ struct DaisyMark: View {
     }
 }
 
+struct BloomStatusPill: View {
+    var body: some View {
+        VStack(spacing: 8) {
+            Image("BloomStatusMedal")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 220, height: 100)
+
+            Text("绽放")
+                .font(.system(size: 30, weight: .heavy, design: .rounded))
+                .foregroundStyle(GardenTheme.ink)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+        }
+        .accessibilityElement(children: .combine)
+        .accessibilityLabel("绽放")
+    }
+}
+
 struct BottomNav: View {
     let active: MainTab
+    var showsAtlasGlow = false
     let action: (MainTab) -> Void
 
     var body: some View {
         HStack(spacing: 6) {
             item(.today, title: "今日", systemImage: "drop")
-            item(.atlas, title: "图鉴", systemImage: "leaf")
+            item(.atlas, title: "图鉴", systemImage: "leaf", showsGlow: showsAtlasGlow)
             item(.us, title: "我们", systemImage: "person.2")
         }
         .frame(maxWidth: .infinity)
@@ -138,26 +158,72 @@ struct BottomNav: View {
         .padding(.bottom, 10)
     }
 
-    private func item(_ tab: MainTab, title: String, systemImage: String) -> some View {
+    private func item(_ tab: MainTab, title: String, systemImage: String, showsGlow: Bool = false) -> some View {
         Button {
             action(tab)
         } label: {
-            VStack(spacing: 5) {
-                Image(systemName: systemImage)
-                    .symbolVariant(active == tab ? .fill : .none)
-                    .font(.title3.weight(.semibold))
-                Text(title)
-                    .font(.caption2.weight(.bold))
+            ZStack {
+                if showsGlow {
+                    AtlasNavGlow()
+                }
+
+                VStack(spacing: 5) {
+                    Image(systemName: systemImage)
+                        .symbolVariant(active == tab ? .fill : .none)
+                        .font(.title3.weight(.semibold))
+                    Text(title)
+                        .font(.caption2.weight(.bold))
+                }
             }
             .foregroundStyle(active == tab ? .white : Color(uiColor: .secondaryLabel))
             .frame(maxWidth: .infinity)
-            .frame(minHeight: 52)
+            .frame(height: 52)
             .background(active == tab ? GardenTheme.primaryGradient : LinearGradient(colors: [.clear, .clear], startPoint: .top, endPoint: .bottom), in: RoundedRectangle(cornerRadius: 25, style: .continuous))
             .shadow(color: active == tab ? GardenTheme.leaf.opacity(0.22) : .clear, radius: 9, x: 0, y: 5)
         }
         .accessibilityLabel(title)
         .accessibilityAddTraits(active == tab ? .isSelected : [])
         .buttonStyle(GardenPressStyle())
+    }
+}
+
+private struct AtlasNavGlow: View {
+    var body: some View {
+        TimelineView(.animation) { timeline in
+            let phase = timeline.date.timeIntervalSinceReferenceDate.truncatingRemainder(dividingBy: 1.8) / 1.8
+            let pulse = 0.72 + CGFloat(phase) * 0.42
+            let opacity = 0.34 * (1 - CGFloat(phase))
+
+            ZStack {
+                Capsule()
+                    .fill(GardenTheme.gold.opacity(0.18))
+                    .blur(radius: 8)
+                    .scaleEffect(pulse)
+                    .opacity(opacity)
+
+                Capsule()
+                    .stroke(GardenTheme.gold.opacity(0.55), lineWidth: 1.4)
+                    .blur(radius: 0.3)
+                    .scaleEffect(1.02)
+
+                Circle()
+                    .fill(GardenTheme.gold)
+                    .frame(width: 8, height: 8)
+                    .overlay {
+                        Circle()
+                            .stroke(.white.opacity(0.75), lineWidth: 1)
+                    }
+                    .shadow(color: GardenTheme.gold.opacity(0.55), radius: 7, x: 0, y: 0)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topTrailing)
+                    .padding(.top, 7)
+                    .padding(.trailing, 18)
+            }
+            .frame(maxWidth: .infinity)
+            .frame(height: 52)
+        }
+        .frame(maxWidth: .infinity)
+        .frame(height: 52)
+        .allowsHitTesting(false)
     }
 }
 
@@ -172,7 +238,7 @@ struct PrimaryButton: View {
             HStack(spacing: 8) {
                 if let systemImage {
                     Image(systemName: systemImage)
-                        .font(.headline.weight(.semibold))
+                        .font((systemImage == "lock.fill" ? Font.subheadline : Font.headline).weight(.semibold))
                 }
                 Text(title)
                     .lineLimit(1)
