@@ -15,6 +15,7 @@ final class GardenStore: ObservableObject {
 
     private let healthProvider = HealthStepProvider()
     private let persistenceKey = "BuBuGarden.Progress.v1"
+    private var isObservingStepChanges = false
 
     init() {
         let loaded = GardenStore.loadProgress(key: persistenceKey)
@@ -86,6 +87,7 @@ final class GardenStore: ObservableObject {
             progress.authorized = true
             progress.hasSeenIntro = true
             todaySteps = try await healthProvider.fetchTodaySteps()
+            startStepObservationIfPossible()
             statusMessage = "Apple Health 已连接"
             screen = .today
             save()
@@ -100,13 +102,28 @@ final class GardenStore: ObservableObject {
 
     func refreshStepsIfPossible() async {
         guard progress.authorized else { return }
+        guard !isLoadingSteps else { return }
         isLoadingSteps = true
         defer { isLoadingSteps = false }
 
         do {
             todaySteps = try await healthProvider.fetchTodaySteps()
             progress = progress.normalizedForToday()
+            startStepObservationIfPossible()
             save()
+        } catch {
+            statusMessage = error.localizedDescription
+        }
+    }
+
+    func startStepObservationIfPossible() {
+        guard progress.authorized, !isObservingStepChanges else { return }
+
+        do {
+            try healthProvider.startObservingStepChanges { [weak self] in
+                await self?.refreshStepsIfPossible()
+            }
+            isObservingStepChanges = true
         } catch {
             statusMessage = error.localizedDescription
         }

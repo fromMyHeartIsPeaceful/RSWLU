@@ -21,6 +21,7 @@ enum HealthStepError: LocalizedError {
 @MainActor
 final class HealthStepProvider {
     private let store = HKHealthStore()
+    private var stepObserverQuery: HKObserverQuery?
 
     var isHealthDataAvailable: Bool {
         HKHealthStore.isHealthDataAvailable()
@@ -62,5 +63,26 @@ final class HealthStepProvider {
 
             store.execute(query)
         }
+    }
+
+    func startObservingStepChanges(onChange: @escaping @MainActor @Sendable () async -> Void) throws {
+        guard isHealthDataAvailable else { throw HealthStepError.unavailable }
+        guard stepObserverQuery == nil else { return }
+        guard let stepType = HKObjectType.quantityType(forIdentifier: .stepCount) else {
+            throw HealthStepError.missingStepType
+        }
+
+        let query = HKObserverQuery(sampleType: stepType, predicate: nil) { _, completionHandler, error in
+            completionHandler()
+
+            if error == nil {
+                Task { @MainActor in
+                    await onChange()
+                }
+            }
+        }
+
+        stepObserverQuery = query
+        store.execute(query)
     }
 }
